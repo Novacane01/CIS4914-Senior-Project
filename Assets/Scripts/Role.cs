@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class Role {
     public Task[] tasks;
     public class Student : Role{
