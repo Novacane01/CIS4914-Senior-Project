@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour {
+    int currentPopulation;
     private void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("NPC")) {
             other.gameObject.GetComponent<NPC>().startTask();
