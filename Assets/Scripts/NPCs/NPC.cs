@@ -11,6 +11,8 @@ public class NPC : MonoBehaviour {
         Cough,
     }
 
+    public Transform house;
+
     public float deathChance = 0f;
     public bool isInfected = false;
     public Conditions[] underlyingConditions;
@@ -21,22 +23,28 @@ public class NPC : MonoBehaviour {
     public SkinnedMeshRenderer meshRenderer;
     // Start is called before the first frame update
     void Start() {
+        Debug.Log("works not being atttatched to anything");
         tasks = new Queue<Task>(initialTasks);
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     // Update is called once per frame
     void Update() {
-        Task currentTask = tasks.Peek();
-        if (currentTask.isDone) {
-            tasks.Dequeue();
-        }
-        if (!currentTask.inProgress) {
-            Debug.Log(tasks.Peek().location.transform.position);
-            agent.SetDestination(tasks.Peek().location.transform.position);
-            currentTask.inProgress = true;
-            // some time interval when they arrive
-        }
+        //Task currentTask = tasks.Peek();
+        //if (currentTask.isDone) {
+        //    tasks.Dequeue();
+        //}
+        //if (!currentTask.inProgress) {
+        //    Debug.Log(tasks.Peek().location.transform.position);
+        //    NavMeshHit hit;
+        //    if(NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
+        //        Debug.Log(hit.position);
+        //        agent.SetDestination(hit.position);
+        //    }
+            
+        //    currentTask.inProgress = true;
+        //    // some time interval when they arrive
+        //}
         //else {
         //    // Hide NPC until task is finished
         //    gameObject.SetActive(false);
