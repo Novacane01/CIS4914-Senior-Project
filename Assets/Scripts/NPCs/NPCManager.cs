@@ -21,12 +21,15 @@ public class NPCManager : MonoBehaviour {
             GameObject newNPCObject = UnityEngine.Object.Instantiate(npc, PopulationList.transform);
             NavMeshAgent navMeshAgent = newNPCObject.GetComponent<NavMeshAgent>();
             Transform house = houses[rnd.Next(housesLength)];
+            Debug.Log(house.position);
             NavMeshHit hit;
             if (NavMesh.SamplePosition(house.position, out hit, 20f, NavMesh.AllAreas)) {
                 Debug.Log(hit.position);
                 Debug.Log(hit.distance);
                 Debug.Log(hit);
-                newNPCObject.transform.position = hit.position;
+                //navMeshAgent.nextPosition = hit.position;
+                navMeshAgent.Warp(hit.position);
+                Debug.Log(newNPCObject.transform.position);
             }
             NPC newNPC = newNPCObject.AddComponent<NPC>();
             newNPC.house = house;

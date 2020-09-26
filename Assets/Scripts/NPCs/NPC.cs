@@ -30,28 +30,28 @@ public class NPC : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        //Task currentTask = tasks.Peek();
-        //if (currentTask.isDone) {
-        //    tasks.Dequeue();
-        //}
-        //if (!currentTask.inProgress) {
-        //    Debug.Log(tasks.Peek().location.transform.position);
-        //    NavMeshHit hit;
-        //    if(NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
-        //        Debug.Log(hit.position);
-        //        agent.SetDestination(hit.position);
-        //    }
-            
-        //    currentTask.inProgress = true;
-        //    // some time interval when they arrive
-        //}
-        //else {
-        //    // Hide NPC until task is finished
-        //    gameObject.SetActive(false);
-        //    StartCoroutine(WaitForTaskCompletion(currentTask));
-        //    gameObject.SetActive(false);
-        //    currentTask.isDone = true;
-        //}
+        Task currentTask = tasks.Peek();
+        if (currentTask.isDone) {
+            tasks.Dequeue();
+        }
+        if (!currentTask.inProgress) {
+            Debug.Log(tasks.Peek().location.transform.position);
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
+                Debug.Log(hit.position);
+                agent.SetDestination(hit.position);
+            }
+
+            currentTask.inProgress = true;
+            // some time interval when they arrive
+        }
+        else {
+            // Hide NPC until task is finished
+            gameObject.SetActive(false);
+            StartCoroutine(WaitForTaskCompletion(currentTask));
+            gameObject.SetActive(false);
+            currentTask.isDone = true;
+        }
     }
 
     public void startTask() {
