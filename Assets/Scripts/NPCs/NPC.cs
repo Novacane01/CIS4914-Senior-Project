@@ -17,14 +17,12 @@ public class NPC : MonoBehaviour {
     public bool isInfected = false;
     public Conditions[] underlyingConditions;
     private Queue<Task> tasks;
-    [SerializeField]
-    public Task[] initialTasks; // Initial tasks of NPC (assinged in inspector)
     public NavMeshAgent agent;
     public SkinnedMeshRenderer meshRenderer;
     // Start is called before the first frame update
     void Start() {
         Debug.Log("works not being atttatched to anything");
-        tasks = new Queue<Task>(initialTasks);
+        agent = gameObject.GetComponent<NavMeshAgent>();
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
@@ -34,22 +32,31 @@ public class NPC : MonoBehaviour {
         if (currentTask.isDone) {
             tasks.Dequeue();
         }
-        if (!currentTask.inProgress) {
+        if (!currentTask.enRoute) {
             Debug.Log(tasks.Peek().location.transform.position);
             NavMeshHit hit;
             if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                 Debug.Log(hit.position);
                 agent.SetDestination(hit.position);
-            }
+                currentTask.enRoute = true;
+                //For creating line renderer object
+                LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+                lineRenderer.startColor = Color.black;
+                lineRenderer.endColor = Color.black;
+                lineRenderer.startWidth = 1f;
+                lineRenderer.endWidth = 1f;
+                lineRenderer.positionCount = 2;
+                lineRenderer.useWorldSpace = true;
 
-            currentTask.inProgress = true;
+                //For drawing line in the world space, provide the x,y,z values
+                lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
+                lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
+            }
             // some time interval when they arrive
         }
-        else {
+        else if (currentTask.inProgress) {
             // Hide NPC until task is finished
-            gameObject.SetActive(false);
             StartCoroutine(WaitForTaskCompletion(currentTask));
-            gameObject.SetActive(false);
             currentTask.isDone = true;
         }
     }
@@ -66,6 +73,10 @@ public class NPC : MonoBehaviour {
         yield return new WaitForSeconds(task.duration);
         task.isDone = true;
         Debug.Log("Finished task");
+    }
+
+    public void loadTasks(Task[] tasks) {
+        this.tasks = new Queue<Task>(tasks);
     }
 }
 

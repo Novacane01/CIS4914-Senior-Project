@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour {
-    int currentPopulation;
+    List<NPC> occupancy = new List<NPC>();
     private void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("NPC")) {
-            other.gameObject.GetComponent<NPC>().startTask();
+            NPC npc = other.gameObject.GetComponent<NPC>();
+            npc.startTask();
+            Disease.calculateSpread(occupancy);
+            occupancy.Add(npc);
             other.gameObject.GetComponent<NPC>().meshRenderer.enabled = false;
         }
     }

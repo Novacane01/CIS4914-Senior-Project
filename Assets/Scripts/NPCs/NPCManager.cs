@@ -7,6 +7,8 @@ public class NPCManager : MonoBehaviour {
     // Start is called before the first frame update
     //public List<Transform> houses =  new List<Transform>(GameObject.Find("Houses").GetComponentsInChildren<Transform>());
     public List<Transform> houses;
+    public List<Transform> buildings;
+    public int numberOfTasks;
     public GameObject PopulationList;
     public int population;
     public GameObject npc;
@@ -16,7 +18,8 @@ public class NPCManager : MonoBehaviour {
         System.Random rnd = new System.Random();
         //npcList = new List<NPC>(population);
         int housesLength = houses.Capacity;
-        for (short i = 0; i < population; i++) {
+        int buildingsLength = buildings.Capacity;
+        for (int i = 0; i < population; i++) {
             //npcList.Add(new NPC(houses[rnd.Next(housesLength)]));
             GameObject newNPCObject = UnityEngine.Object.Instantiate(npc, PopulationList.transform);
             NavMeshAgent navMeshAgent = newNPCObject.GetComponent<NavMeshAgent>();
@@ -32,6 +35,11 @@ public class NPCManager : MonoBehaviour {
                 Debug.Log(newNPCObject.transform.position);
             }
             NPC newNPC = newNPCObject.AddComponent<NPC>();
+            List<Task> currentTasks = new List<Task>();
+            for(int j = 0; j < numberOfTasks; j++) {
+                currentTasks.Add(new Task(buildings[rnd.Next(buildingsLength)]));
+            }
+            newNPC.loadTasks(currentTasks.ToArray());
             newNPC.house = house;
         }
     }
