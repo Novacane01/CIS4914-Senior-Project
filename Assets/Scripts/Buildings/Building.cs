@@ -8,8 +8,8 @@ public class Building : MonoBehaviour {
         if (other.tag.Equals("NPC")) {
             NPC npc = other.gameObject.GetComponent<NPC>();
             npc.startTask();
-            Disease.calculateSpread(occupancy);
             occupancy.Add(npc);
+            Disease.calculateSpread(occupancy);
             other.gameObject.GetComponent<NPC>().meshRenderer.enabled = false;
         }
     }
