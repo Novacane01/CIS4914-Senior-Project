@@ -26,7 +26,6 @@ public class NPC : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        Debug.Log("works not being atttatched to anything");
         agent = gameObject.GetComponent<NavMeshAgent>();
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
 
@@ -43,21 +42,26 @@ public class NPC : MonoBehaviour {
     void Update() {
         //For drawing line in the world space, provide the x,y,z values
         lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
-        Task currentTask = tasks.Peek();
+        if(tasks.Count) {
+            Task currentTask = tasks.Peek();
+        }
         if (currentTask.isDone) {
             tasks.Dequeue();
+            // Return home when finished all tasks
+            if(!tasks.Count){
+                agent.SetDestination(house.position);
+            }
         }
+        // Haven't started moving towards location yet
         if (!currentTask.enRoute) {
-            Debug.Log(tasks.Peek().location.transform.position);
             NavMeshHit hit;
             if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
-                Debug.Log(hit.position);
                 agent.SetDestination(hit.position);
                 currentTask.enRoute = true;
                 lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
             }
-            // some time interval when they arrive
         }
+        // Reached destination; initate task
         else if (currentTask.inProgress) {
             // Hide NPC until task is finished
             StartCoroutine(WaitForTaskCompletion(currentTask));
@@ -65,8 +69,8 @@ public class NPC : MonoBehaviour {
         }
     }
 
+    // Initiate task on top of the queue
     public void startTask() {
-        // Hide NPC until task is finished
         Debug.Log("Starting task");
         Task currentTask = tasks.Peek();
         Debug.Log(currentTask.duration);
@@ -74,11 +78,12 @@ public class NPC : MonoBehaviour {
     }
 
     IEnumerator WaitForTaskCompletion(Task task) {
-        yield return new WaitForSeconds(task.duration);
+        yield return new WaitForSeconds(task.duration); // Wait for the task duration then continue
         task.isDone = true;
         Debug.Log("Finished task");
     }
 
+    // Convert Array of tasks to Queue
     public void loadTasks(Task[] tasks) {
         this.tasks = new Queue<Task>(tasks);
     }
