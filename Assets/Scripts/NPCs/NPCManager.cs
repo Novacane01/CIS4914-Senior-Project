@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NPCManager : MonoBehaviour {
     public List<Transform> houses;
-    public List<Transform> buildings;
+    public List<Transform> buildings = new List<Transform>(GameObject.Find("TaskBuildings").GetComponentsInChildren<Transform>());
     public int numberOfTasks;
     public GameObject PopulationList;
     public uint population;
@@ -20,17 +20,24 @@ public class NPCManager : MonoBehaviour {
             GameObject newNPCObject = UnityEngine.Object.Instantiate(npc, PopulationList.transform);
             NavMeshAgent navMeshAgent = newNPCObject.GetComponent<NavMeshAgent>();
             Transform house = houses[rnd.Next(housesLength)];
-            Debug.Log(house.position);
+            Transform door = house.Find("Door").transform;
+            Debug.Log("Door Transform Position: ");
+            Debug.Log(door.position);
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(house.position, out hit, 20f, NavMesh.AllAreas)) {
+            if (NavMesh.SamplePosition(door.position, out hit, 20f, NavMesh.AllAreas)) {
+                // Debug.Log(hit.position);
+                // Debug.Log(hit.distance);
+                Debug.Log(hit);
                 navMeshAgent.Warp(hit.position);
+                Debug.Log(newNPCObject.transform.position);
+            } else {
+                Debug.Log("ERROR FINDING SAMPLE POSITION");
             }
             NPC newNPC = newNPCObject.AddComponent<NPC>();
             List<Task> currentTasks = new List<Task>();
-            //for(int j = 0; j < numberOfTasks; j++) {
-            //    currentTasks.Add(new Task(buildings[rnd.Next(buildingsLength)]));
-            //}
-            currentTasks.Add(new Task(buildings[0]));
+            for(int j = 0; j < numberOfTasks; j++) {
+                currentTasks.Add(new Task(buildings[rnd.Next(buildingsLength)].Find("Door").transform));
+            }
             newNPC.loadTasks(currentTasks.ToArray());
             newNPC.house = house;
             if(numInfected > 0) {

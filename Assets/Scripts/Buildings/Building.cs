@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : MonoBehaviour {
-    List<NPC> occupancy = new List<NPC>();
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag.Equals("NPC")) {
-            NPC npc = other.gameObject.GetComponent<NPC>();
-            npc.startTask();
-            occupancy.Add(npc);
-            Disease.calculateSpread(occupancy);
-            other.gameObject.GetComponent<NPC>().meshRenderer.enabled = false;
-        }
+    List<NPC> occupancy = new List<NPC> ();
+
+    public void OnNpcEnter (Collider other) {
+        NPC npc = other.gameObject.GetComponent<NPC> ();
+        npc.startTask ();
+        Disease.calculateSpread (occupancy);
+        occupancy.Add (npc);
+        other.gameObject.GetComponent<NPC> ().meshRenderer.enabled = false;
     }
-    private void OnTriggerExit(Collider other) {
-        if (other.tag.Equals("NPC")) {
-            other.gameObject.GetComponent<NPC>().meshRenderer.enabled = true;
-        }
+    public void OnNpcLeave (Collider other) {
+        other.gameObject.GetComponent<NPC> ().meshRenderer.enabled = true;
     }
+
 }
