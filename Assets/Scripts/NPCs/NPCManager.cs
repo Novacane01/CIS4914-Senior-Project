@@ -4,23 +4,19 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCManager : MonoBehaviour {
-    // Start is called before the first frame update
-    // public List<Transform> houses =  new List<Transform>(GameObject.Find("Houses").GetComponentsInChildren<Transform>());
     public List<Transform> houses;
     public List<Transform> buildings = new List<Transform>(GameObject.Find("TaskBuildings").GetComponentsInChildren<Transform>());
     public int numberOfTasks;
     public GameObject PopulationList;
-    public int population;
+    public uint population;
+    public uint numInfected;
     public GameObject npc;
-    //List<NPC> npcList;
 
     void Start() {
         System.Random rnd = new System.Random();
-        //npcList = new List<NPC>(population);
         int housesLength = houses.Capacity;
         int buildingsLength = buildings.Capacity;
         for (int i = 0; i < population; i++) {
-            //npcList.Add(new NPC(houses[rnd.Next(housesLength)]));
             GameObject newNPCObject = UnityEngine.Object.Instantiate(npc, PopulationList.transform);
             NavMeshAgent navMeshAgent = newNPCObject.GetComponent<NavMeshAgent>();
             Transform house = houses[rnd.Next(housesLength)];
@@ -44,6 +40,10 @@ public class NPCManager : MonoBehaviour {
             }
             newNPC.loadTasks(currentTasks.ToArray());
             newNPC.house = house;
+            if(numInfected > 0) {
+                newNPC.isInfected = true;
+                numInfected--;
+            }
         }
     }
 
