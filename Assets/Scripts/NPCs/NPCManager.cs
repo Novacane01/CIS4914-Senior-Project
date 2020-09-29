@@ -9,7 +9,7 @@ public class NPCManager : MonoBehaviour {
     public int numberOfTasks;
     public GameObject PopulationList;
     public uint population;
-    public uint numInfected;
+    public static uint numInfected;
     public GameObject npc;
 
     void Start() {

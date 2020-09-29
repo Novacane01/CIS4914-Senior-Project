@@ -31,6 +31,7 @@ public class Disease : MonoBehaviour
             float t = 1 - Mathf.Pow(1 - infectionRate, numInfected);
             if (r <= t) {
                 npc.isInfected = true;
+                NPCManager.numInfected++;
             }
         }
     }
