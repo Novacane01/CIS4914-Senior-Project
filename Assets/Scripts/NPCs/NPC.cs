@@ -16,18 +16,33 @@ public class NPC : MonoBehaviour {
     public float deathChance = 0f;
     public bool isInfected = false;
     public Conditions[] underlyingConditions;
-    private Queue<Task> tasks;
+    public Queue<Task> tasks;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer meshRenderer;
+
+    //For creating line renderer object
+    LineRenderer lineRenderer;
+
+
     // Start is called before the first frame update
     void Start() {
         Debug.Log("works not being atttatched to anything");
         agent = gameObject.GetComponent<NavMeshAgent>();
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+
+        lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+        lineRenderer.startColor = Color.black;
+        lineRenderer.endColor = Color.black;
+        lineRenderer.startWidth = 1f;
+        lineRenderer.endWidth = 1f;
+        lineRenderer.positionCount = 2;
+        lineRenderer.useWorldSpace = true;
     }
 
     // Update is called once per frame
     void Update() {
+        //For drawing line in the world space, provide the x,y,z values
+        lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
         Task currentTask = tasks.Peek();
         if (currentTask.isDone) {
             tasks.Dequeue();
@@ -39,17 +54,6 @@ public class NPC : MonoBehaviour {
                 Debug.Log(hit.position);
                 agent.SetDestination(hit.position);
                 currentTask.enRoute = true;
-                //For creating line renderer object
-                LineRenderer lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-                lineRenderer.startColor = Color.black;
-                lineRenderer.endColor = Color.black;
-                lineRenderer.startWidth = 1f;
-                lineRenderer.endWidth = 1f;
-                lineRenderer.positionCount = 2;
-                lineRenderer.useWorldSpace = true;
-
-                //For drawing line in the world space, provide the x,y,z values
-                lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
                 lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
             }
             // some time interval when they arrive

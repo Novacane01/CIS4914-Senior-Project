@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NPCManager : MonoBehaviour {
     public List<Transform> houses;
-    public List<Transform> buildings = new List<Transform>(GameObject.Find("TaskBuildings").GetComponentsInChildren<Transform>());
+    public List<Transform> buildings;
     public int numberOfTasks;
     public GameObject PopulationList;
     public uint population;
