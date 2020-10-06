@@ -7,7 +7,7 @@ public class Building : MonoBehaviour {
 
     public void OnNpcEnter(Collider other) {
         NPC npc = other.gameObject.GetComponent<NPC>();
-        if (npc.tasks.Peek().location.position == transform.position) {
+        if (npc.tasks.Peek().location.parent == transform) {
             npc.startTask();
             Disease.calculateSpread(occupancy);
             occupancy.Add(npc);
@@ -16,7 +16,7 @@ public class Building : MonoBehaviour {
     }
     public void OnNpcLeave(Collider other) {
         NPC npc = other.gameObject.GetComponent<NPC>();
-        if (npc.tasks.Peek().location.position == transform.position) {
+        if (npc.tasks.Peek().location.transform == transform) {
             npc.meshRenderer.enabled = true;
         }
     }

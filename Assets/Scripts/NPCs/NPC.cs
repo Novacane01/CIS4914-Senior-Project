@@ -42,30 +42,30 @@ public class NPC : MonoBehaviour {
     void Update() {
         //For drawing line in the world space, provide the x,y,z values
         lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
-        if(tasks.Count) {
+        if(tasks.Count != 0) {
             Task currentTask = tasks.Peek();
-        }
-        if (currentTask.isDone) {
-            tasks.Dequeue();
-            // Return home when finished all tasks
-            if(!tasks.Count){
-                agent.SetDestination(house.position);
+            if (currentTask.isDone) {
+                tasks.Dequeue();
+                // Return home when finished all tasks
+                if(tasks.Count == 0){
+                    agent.SetDestination(house.position);
+                }
             }
-        }
-        // Haven't started moving towards location yet
-        if (!currentTask.enRoute) {
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
-                agent.SetDestination(hit.position);
-                currentTask.enRoute = true;
-                lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
+            // Haven't started moving towards location yet
+            if (!currentTask.enRoute) {
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
+                    agent.SetDestination(hit.position);
+                    currentTask.enRoute = true;
+                    lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
+                }
             }
-        }
-        // Reached destination; initate task
-        else if (currentTask.inProgress) {
-            // Hide NPC until task is finished
-            StartCoroutine(WaitForTaskCompletion(currentTask));
-            currentTask.isDone = true;
+            // Reached destination; initate task
+            else if (currentTask.inProgress) {
+                // Hide NPC until task is finished
+                StartCoroutine(WaitForTaskCompletion(currentTask));
+                currentTask.isDone = true;
+            }
         }
     }
 
