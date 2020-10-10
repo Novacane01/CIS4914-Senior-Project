@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour {
-    Building building;
+    Building building;  
     void Start() {
         building = GetComponentInParent<Building>();
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("NPC")) {
+            Debug.Log("Entering Door");
             building.OnNpcEnter(other);
         }
     }
