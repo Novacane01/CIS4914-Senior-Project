@@ -48,7 +48,7 @@ public class NPC : MonoBehaviour {
                 tasks.Dequeue();
                 // Return home when finished all tasks
                 if(tasks.Count == 0){
-                    agent.SetDestination(house.position);
+                    agent.SetDestination(house.Find("Door").transform.position);
                 }
             }
             // Haven't started moving towards location yet
@@ -64,7 +64,6 @@ public class NPC : MonoBehaviour {
             else if (currentTask.inProgress) {
                 // Hide NPC until task is finished
                 StartCoroutine(WaitForTaskCompletion(currentTask));
-                currentTask.isDone = true;
             }
         }
     }
