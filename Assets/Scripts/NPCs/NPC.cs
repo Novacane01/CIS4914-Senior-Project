@@ -80,6 +80,8 @@ public class NPC : MonoBehaviour {
     }
 }
 
+
+
 /// float - % of death
 /// Array[] - underlying conditions
 /// bool - isInfected
