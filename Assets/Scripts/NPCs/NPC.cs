@@ -13,6 +13,8 @@ public class NPC : MonoBehaviour {
 
     public Transform house;
 
+    public new string name;
+    public int index;
     public float deathChance = 0f;
     public bool isInfected = false;
     public Conditions[] underlyingConditions;

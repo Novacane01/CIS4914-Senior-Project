@@ -24,7 +24,7 @@ public class Disease : MonoBehaviour
 
     public static void calculateSpread(List<NPC> npcs) {
         List<NPC> infected = npcs.FindAll(npc => npc.isInfected).ToList();
-        int numInfected = infected.Capacity;
+        int numInfected = infected.Count;
         System.Random rnd = new System.Random();
         foreach (NPC npc in npcs) {
             float r = rnd.Next(100) / 100f;
