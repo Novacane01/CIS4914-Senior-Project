@@ -28,7 +28,7 @@ public class InfoPanel : MonoBehaviour {
 
     public void updatePanel(NPC npc) {
         nameText.text = string.Format("Name: {0}", npc.name);
-        taskText.text = string.Format("Next Task: {0}", npc.tasks.Peek().location.gameObject.transform.parent.name);
+        taskText.text = npc.tasks.Count > 0 ? string.Format("Next Task: {0}", npc.tasks.Peek().location.gameObject.transform.parent.name) : "";
         healthText.text = string.Format("Health Status: {0}", npc.isInfected ? "Sick" : "Healthy");
         byte[] bytes = File.ReadAllBytes(string.Format("{0}/{1}.png", Application.streamingAssetsPath, npc.gameObject.name).Replace("(Clone)", ""));
         Texture2D texture = new Texture2D(100, 100);

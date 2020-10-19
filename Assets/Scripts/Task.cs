@@ -8,7 +8,7 @@ public class Task {
         this.location = location; 
     }
     public Transform location;
-    public float duration;
+    public float duration = 1f;
     public bool isDone = false;
     public bool inProgress = false;
     public bool enRoute = false;

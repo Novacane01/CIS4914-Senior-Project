@@ -8,7 +8,7 @@ public class TaskBuilding : Building
         if (npc.tasks.Count != 0 && npc.tasks.Peek().location.parent == transform)
         {
             npc.startTask();
-            Disease.calculateSpread(occupancy);
+            calculateSpread();
             occupancy.Add(npc);
             npc.meshRenderer.enabled = false;
         }

@@ -31,19 +31,19 @@ public class NPC : MonoBehaviour {
         agent = gameObject.GetComponent<NavMeshAgent>();
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
 
-        lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-        lineRenderer.startColor = Color.black;
-        lineRenderer.endColor = Color.black;
-        lineRenderer.startWidth = 1f;
-        lineRenderer.endWidth = 1f;
-        lineRenderer.positionCount = 2;
-        lineRenderer.useWorldSpace = true;
+        //lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
+        //lineRenderer.startColor = Color.black;
+        //lineRenderer.endColor = Color.black;
+        //lineRenderer.startWidth = 1f;
+        //lineRenderer.endWidth = 1f;
+        //lineRenderer.positionCount = 2;
+        //lineRenderer.useWorldSpace = true;
     }
 
     // Update is called once per frame
     void Update() {
         //For drawing line in the world space, provide the x,y,z values
-        lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
+        //lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
         if(tasks.Count != 0) {
             Task currentTask = tasks.Peek();
             if (currentTask.isDone) {
@@ -59,29 +59,37 @@ public class NPC : MonoBehaviour {
                 if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                     agent.SetDestination(hit.position);
                     currentTask.enRoute = true;
-                    lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
+                    //lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
                 }
             }
             // Reached destination; initate task
             else if (currentTask.inProgress) {
                 // Hide NPC until task is finished
-                StartCoroutine(WaitForTaskCompletion(currentTask));
+                StartCoroutine(waitForTaskCompletion(currentTask));
             }
         }
     }
 
     // Initiate task on top of the queue
     public void startTask() {
-        Debug.Log("Starting task");
         Task currentTask = tasks.Peek();
-        Debug.Log(currentTask.duration);
-        StartCoroutine(WaitForTaskCompletion(currentTask));
+        StartCoroutine(waitForTaskCompletion(currentTask));
     }
 
-    IEnumerator WaitForTaskCompletion(Task task) {
+    IEnumerator waitForTaskCompletion(Task task) {
+        // Start another coroutine to calculate spread of disease every X seconds
         yield return new WaitForSeconds(task.duration); // Wait for the task duration then continue
         task.isDone = true;
-        Debug.Log("Finished task");
+    }
+
+    // Periodically calculate disease spread 
+    IEnumerator checkForDiseaseSpread(Task task) {
+        if (!task.isDone) {
+            task.location.parent.GetComponent<TaskBuilding>().calculateSpread();
+            yield return new WaitForSeconds(2f);
+            checkForDiseaseSpread(task);
+        }
+        yield return 0;
     }
 
     // Convert Array of tasks to Queue
