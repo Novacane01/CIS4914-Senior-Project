@@ -57,6 +57,7 @@ public class NPCManager : MonoBehaviour {
             // If initial number fo infected is greater than 0 set npc to infected
             if(initialNumInfected > 0) {
                 newNPC.isInfected = true;
+                numInfected++;
                 initialNumInfected--;
             }
             npcList.Add(newNPC);

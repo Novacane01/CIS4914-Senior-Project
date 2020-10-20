@@ -80461,10 +80461,10 @@ MonoBehaviour:
   - {fileID: 1679171541}
   - {fileID: 1897058436}
   - {fileID: 1372481164}
-  numberOfTasks: 1
+  numberOfTasks: 5
   PopulationList: {fileID: 1663845034}
-  population: 10
-  initialNumInfected: 0
+  population: 45
+  initialNumInfected: 3
   npcsToLoad:
   - {fileID: 8183495506588787116, guid: 156100e9ae8c92c43ba8be2952ce607b, type: 3}
   - {fileID: 1838768064566454926, guid: cf19662aea8a6df4090325112e82dbe2, type: 3}

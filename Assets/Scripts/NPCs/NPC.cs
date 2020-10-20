@@ -5,11 +5,7 @@ using UnityEngine.AI;
 
 public class NPC : MonoBehaviour {
     // Underlying conditions that may increase the risk of death
-    public enum Conditions {
-        Asthma,
-        Fever,
-        Cough,
-    }
+   
 
     public Transform house;
 
@@ -17,7 +13,7 @@ public class NPC : MonoBehaviour {
     public int index;
     public float deathChance = 0f;
     public bool isInfected = false;
-    public Conditions[] underlyingConditions;
+    public Disease.Condition[] underlyingConditions;
     public Queue<Task> tasks;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer meshRenderer;
@@ -87,6 +83,14 @@ public class NPC : MonoBehaviour {
     // Convert Array of tasks to Queue
     public void loadTasks(Task[] tasks) {
         this.tasks = new Queue<Task>(tasks);
+    }
+
+
+    IEnumerator CheckForDeath()
+    {
+        yield return new WaitForSeconds(task.duration); // Wait for the task duration then continue
+        task.isDone = true;
+        Debug.Log("Finished task");
     }
 }
 

@@ -10,7 +10,6 @@ public class Door : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("NPC")) {
-            Debug.Log("Entering Door");
             building.OnNpcEnter(other);
         }
     }

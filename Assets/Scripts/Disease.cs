@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Disease : MonoBehaviour
+public class Disease
 {
-    public static float infectionRate = 0.01f;
+
+    public enum Condition
+    {
+        Asthma,
+        Fever,
+        Cough,
+    }
+
+    // percent added to death rate due to condition
+    public Dictionary<Condition, float> conditionEffects = new Dictionary<Condition, float> { 
+        {Condition.Asthma, 0.2f } 
+    } ;
+
+    public static float infectionRate = 0.50f;
     public static float spreadDistance = 6f;
     public static int incubationTime = 0; // Days
     public bool active = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static bool hasDied(NPC npc)  {
+        if(npc.isInfected)
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
+        }
         
+        return false;
     }
 
     public static void calculateSpread(List<NPC> npcs) {
@@ -34,5 +44,7 @@ public class Disease : MonoBehaviour
                 NPCManager.numInfected++;
             }
         }
+
+        Debug.Log("Number Infected: " + NPCManager.numInfected);
     }
 }

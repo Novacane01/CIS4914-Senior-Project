@@ -7,7 +7,6 @@ public class House : Building
         NPC npc = other.gameObject.GetComponent<NPC>();
         if (npc.house == transform)
         {
-            Debug.Log("Entered player home");
             Disease.calculateSpread(occupancy);
             occupancy.Add(npc);
             if(npc.meshRenderer != null)
