@@ -17,7 +17,7 @@ public class Statistics : MonoBehaviour{
         populationStat = 0;
         numInfectedStat = 0;
         numDeathsStat = 0;
-}
+    }
 
     // Update is called once per frame
     void Update(){
