@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Disease
@@ -23,28 +22,8 @@ public class Disease
     public static int incubationTime = 0; // Days
     public bool active = false;
 
-    public static bool hasDied(NPC npc)  {
-        if(npc.isInfected)
-        {
-
-        }
-        
-        return false;
-    }
-
-    public static void calculateSpread(List<NPC> npcs) {
-        List<NPC> infected = npcs.FindAll(npc => npc.isInfected).ToList();
-        int numInfected = infected.Count;
-        System.Random rnd = new System.Random();
-        foreach (NPC npc in npcs) {
-            float r = rnd.Next(100) / 100f;
-            float t = 1 - Mathf.Pow(1 - infectionRate, numInfected);
-            if (r <= t) {
-                npc.isInfected = true;
-                NPCManager.numInfected++;
-            }
-        }
-
-        Debug.Log("Number Infected: " + NPCManager.numInfected);
+    public static float getChanceOfDeath(NPC npc)  {
+     
+        return 0f;
     }
 }

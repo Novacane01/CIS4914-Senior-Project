@@ -18,6 +18,8 @@ public class NPCManager : MonoBehaviour {
     public static List<NPC> npcList = new List<NPC>();
 
     void Start() {
+        Time.timeScale = 50f;
+        Time.fixedDeltaTime = Time.fixedDeltaTime * Time.timeScale;
         System.Random rnd = new System.Random();
         int housesLength = houses.Count;
         int buildingsLength = buildings.Count;
@@ -30,10 +32,7 @@ public class NPCManager : MonoBehaviour {
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(door.position, out hit, 20f, NavMesh.AllAreas)) {
-             
-                Debug.Log(hit);
-                navMeshAgent.Warp(hit.position);
-                Debug.Log(newNPCObject.transform.position);
+                navMeshAgent.Warp(hit.position); 
             } else {
                 Debug.Log("ERROR FINDING SAMPLE POSITION");
             }
@@ -55,7 +54,7 @@ public class NPCManager : MonoBehaviour {
                 newNPC.name = string.Format("{0} {1}", maleFirstNames[rnd.Next(maleFirstNames.Count)], lastNames[rnd.Next(lastNames.Count)]);
             }
             // If initial number fo infected is greater than 0 set npc to infected
-            if(initialNumInfected > 0) {
+            if(i < initialNumInfected) {
                 newNPC.isInfected = true;
                 numInfected++;
                 initialNumInfected--;
@@ -72,6 +71,3 @@ public class NPCManager : MonoBehaviour {
 
     }
 }
-
-/// int - population
-/// function spawn() 
