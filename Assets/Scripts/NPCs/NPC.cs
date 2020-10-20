@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 public class NPC : MonoBehaviour {
     // Underlying conditions that may increase the risk of death
@@ -10,6 +11,8 @@ public class NPC : MonoBehaviour {
         Fever,
         Cough,
     }
+
+    public UnityEvent completedDay = new UnityEvent();
 
     public Transform house;
 
@@ -51,6 +54,7 @@ public class NPC : MonoBehaviour {
                 // Return home when finished all tasks
                 if(tasks.Count == 0){
                     agent.SetDestination(house.Find("Door").transform.position);
+                    StartCoroutine(waitUntilHome());
                 }
             }
             // Haven't started moving towards location yet
@@ -90,6 +94,11 @@ public class NPC : MonoBehaviour {
             checkForDiseaseSpread(task);
         }
         yield return 0;
+    }
+
+    IEnumerator waitUntilHome() {
+        yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f));
+        completedDay.Invoke();
     }
 
     // Convert Array of tasks to Queue
