@@ -16,4 +16,5 @@ public class UIManager : MonoBehaviour {
     public void displayDayResults() {
         // Talk with Graph class and display daily graph
     }
+
 }
