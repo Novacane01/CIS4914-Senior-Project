@@ -27,8 +27,8 @@ public class UpdateText : MonoBehaviour
     void Update()
     {
         num += 1;
-        txtInfections.text = "Infections: " + num.ToString();
-        txtDeaths.text = "Deaths: " + num.ToString();
-        txtPopulations.text = "Population: " + num.ToString();
+        txtInfections.text = num.ToString();
+        txtDeaths.text = num.ToString();
+        txtPopulations.text = num.ToString();
     }
 }

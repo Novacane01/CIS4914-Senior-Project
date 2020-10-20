@@ -11,7 +11,12 @@ public class OpenPanel : MonoBehaviour{
     public GameObject Panel;
     public bool openPanel = false;
 
-    void Update()
+    void Start()
+    {
+        Panel.gameObject.SetActive(false);
+    }
+
+        void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {

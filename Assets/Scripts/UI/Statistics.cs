@@ -21,9 +21,12 @@ public class Statistics : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-        populationStat = nPCManager.population;
-        numInfectedStat = nPCManager.numInfected;
+        //populationStat = nPCManager.population;
+        //numInfectedStat = nPCManager.numInfected;
         //private uintnumDeaths = 0; 
+        populationStat +=1;
+        numInfectedStat += 1;
+        numDeathsStat += 1;
     }
     //adds on for later
     //social distanced
