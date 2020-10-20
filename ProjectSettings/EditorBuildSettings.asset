@@ -4,11 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 605aa5ef8782f294f93be522723ee0ba
-  - enabled: 1
-    path: Assets/Scenes/MainScene.unity
-    guid: 42f7820cd95b1684a91007f98ca1ae8f
+  m_Scenes: [{enabled: 1, path: Assets/SimpleTown/DemoScene/Main.unity, guid: e5c5cc1e981f68a48ad3e2e57e017ea8},
+    {enabled: 1, path: Assets/SimpleTown/DemoScene/SimpleTown_DemoScene.unity, guid: 21ba8959b0b9c5e41889da424bb00b0b},
+    {enabled: 1, path: Assets/Scenes/MainMenu.unity, guid: 605aa5ef8782f294f93be522723ee0ba},
+    {enabled: 1, path: Assets/Scenes/MainScene.unity, guid: 42f7820cd95b1684a91007f98ca1ae8f}]
   m_configObjects: {}
