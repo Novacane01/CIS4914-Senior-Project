@@ -15,6 +15,7 @@ public class Graph : MonoBehaviour{
     Text YaxisTop;
     Text YaxisMid;
     Text YaxisBottom;
+    //
     //Text txtDeaths;
     //Text txtPopulations;
     void Start(){
@@ -56,6 +57,29 @@ public class Graph : MonoBehaviour{
     create circle 
      
      
+     */
+
+    /*
+     if users determine the length of the simulation, either by task or otherwise we can calculate x axis like 
+    after x amount of time has passed, get current numInfected from Statistics Script, put in value list; 
+        Add x axis labels
+        Text Xaxis1;
+        Text Xaxis2;
+        Text Xaxis3;
+
+
+        UnityEngine.Time
+        private List<int> values;
+        public Statistics stats;
+        float timePassed; 
+        float addInterval = 60f; (if our sim runs for 5 mins and each minute is a day, than this will be 1 minute)
+        float time = Time.time;
+    void Update(){
+        if(time - timePassed >= addInterval){
+            timePassed = time; 
+            value.add(stats.numInfectedStat);
+        }
+     }
      */
 
     private void CreateBar(Vector2 setPosition, float width) {
