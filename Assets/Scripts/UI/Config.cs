@@ -14,23 +14,23 @@ public class Config : MonoBehaviour {
     public InputField taskNumInput;
     public InputField taskDurInput;
 
-    public static int initPop = 0;
-    public static int initInfectPop = 0;
+    public static uint initPop = 0;
+    public static uint initInfectPop = 0;
     public static int initRate = 0;
-    public static int numDays = 3;
-    public static int numTasks = 6;
-    public static int durationTasks = 5;
+    public static uint numDays = 3;
+    public static uint numTasks = 6;
+    public static uint durationTasks = 5;
 
 
     private void ValueChange() {
         //put numeric constraint
         try {
-            initPop = Convert.ToInt32(popInput.text.ToString());
-            initInfectPop = Convert.ToInt32(infectedInput.text.ToString());
+            initPop = Convert.ToUInt32(popInput.text.ToString());
+            initInfectPop = Convert.ToUInt32(infectedInput.text.ToString());
             initRate = Convert.ToInt32(infectRateInput.text.ToString());
-            numTasks = Convert.ToInt32(numDaysInput.text.ToString());
-            durationTasks = Convert.ToInt32(taskNumInput.text.ToString());
-            numDays = Convert.ToInt32(taskDurInput.text.ToString());
+            numTasks = Convert.ToUInt32(numDaysInput.text.ToString());
+            durationTasks = Convert.ToUInt32(taskNumInput.text.ToString());
+            numDays = Convert.ToUInt32(taskDurInput.text.ToString());
         }
         catch (FormatException) {
             Debug.Log("given input is not a numeric value");
