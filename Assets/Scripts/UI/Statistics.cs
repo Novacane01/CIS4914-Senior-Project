@@ -8,9 +8,9 @@ public class Statistics : MonoBehaviour{
 
     //# who are immunce
     public NPCManager nPCManager;
-    public uint populationStat;
-    private uint numInfectedStat;
-    private uint numDeathsStat; 
+    public static uint populationStat;
+    public static uint numInfectedStat;
+    public static uint numDeathsStat; 
 
     // Start is called before the first frame update
     void Start(){

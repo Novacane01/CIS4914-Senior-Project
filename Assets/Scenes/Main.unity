@@ -3186,32 +3186,23 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 652db9f00bbacfc4f833cb391d29511d, type: 3}
-    m_FontSize: 30
+    m_FontSize: 33
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 3
-    m_MaxSize: 40
+    m_MaxSize: 300
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-    quis cursus dui. Ut ut sapien porttitor, placerat eros sit amet, lobortis erat.
-    In volutpat nunc vitae leo accumsan, ac condimentum odio tempor. Pellentesque
-    porttitor eros nibh, in pharetra nibh interdum et. Fusce pellentesque dui ac
-    diam cursus, a vulputate sapien feugiat. Donec sit amet consectetur justo. Sed
-    at volutpat nunc. Pellentesque semper consequat arcu, in lobortis elit. Sed vel
-    pretium nibh, non venenatis justo.
-
-
-
-    Fusce libero risus, malesuada vel faucibus
-    non, elementum eu nisl. Cras non pellentesque mauris. Nunc eleifend urna non
-    odio porttitor ultricies. Aenean sollicitudin ante risus, vitae ultricies magna
-    dignissim id. Aenean lobortis nulla ac magna tempus molestie. Curabitur mollis
-    neque vel nunc aliquam molestie ut id enim. Ut semper tristique sapien vel gravida.'
+  m_Text: "Population determines the initial population size. \n\nThe portion of
+    the population that starts with the disease is determined with Infected Population.
+    \n\nInfection Rate is how contagious the disease is. \n\nNumber of Days, Tasks
+    Per Day and Task Duration all decide how long the simulation will run. Task Duration
+    is in seconds. \n\nIf Task Duration is 6 and Tasks Per Day is 5, each day will
+    be 30 seconds in real time. "
 --- !u!222 &1688782482
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3506,7 +3497,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 349.91803, y: 39.00566}
+  m_SizeDelta: {x: 349.91803, y: 51.311172}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2026714705
 MonoBehaviour:
