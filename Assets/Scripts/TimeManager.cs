@@ -10,7 +10,7 @@ public class TimeManager {
     public TimeManager() {
         directionalLight = GameObject.Find("Directional light").GetComponent<Light>();
         lightIntensity = directionalLight.intensity;
-        //timeInDaySeconds = Config.taskDuration * Config.tasksPerDay;
+        timeInDaySeconds = Config.taskDuration * Config.tasksPerDay;
     }
 
     public void endDay() {

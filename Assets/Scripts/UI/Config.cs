@@ -18,8 +18,8 @@ public class Config : MonoBehaviour {
     public static int initInfectPop = 0;
     public static int initRate = 0;
     public static int numDays = 3;
-    public static int numTasks = 6;
-    public static int durationTasks = 5;
+    public static int tasksPerDay = 6;
+    public static int taskDuration = 5;
 
 
     private void ValueChange() {
@@ -28,8 +28,8 @@ public class Config : MonoBehaviour {
             initPop = Convert.ToInt32(popInput.text.ToString());
             initInfectPop = Convert.ToInt32(infectedInput.text.ToString());
             initRate = Convert.ToInt32(infectRateInput.text.ToString());
-            numTasks = Convert.ToInt32(numDaysInput.text.ToString());
-            durationTasks = Convert.ToInt32(taskNumInput.text.ToString());
+            tasksPerDay = Convert.ToInt32(numDaysInput.text.ToString());
+            taskDuration = Convert.ToInt32(taskNumInput.text.ToString());
             numDays = Convert.ToInt32(taskDurInput.text.ToString());
         }
         catch (FormatException) {
@@ -47,8 +47,8 @@ public class Config : MonoBehaviour {
         Debug.Log(initInfectPop);
         Debug.Log(initRate);
         Debug.Log(numDays);
-        Debug.Log(numTasks);
-        Debug.Log(durationTasks);
+        Debug.Log(tasksPerDay);
+        Debug.Log(taskDuration);
         if (initPop == 0 || initInfectPop == 0 || initRate == 0) {
             Debug.Log("Popup window with stop message");
         }
