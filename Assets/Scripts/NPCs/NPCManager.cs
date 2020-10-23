@@ -18,7 +18,7 @@ public class NPCManager : MonoBehaviour {
     public uint tasksCompleted = 0;
     public uint npcsFinished = 0;
     public GameObject PopulationList;
-    public uint population = Config.initPop;
+    public uint population;
     public uint initialNumInfected = Config.initInfectPop;
     //public int infectionRate = Config.initRate;
     public static uint numInfected;

@@ -14,15 +14,15 @@ public class Graph : MonoBehaviour{
     private RectTransform graphDisplay;
     Text YaxisTop;
     Text YaxisMid;
-    Text YaxisBottom;
+    Text YaxisBot;
     //
     //Text txtDeaths;
     //Text txtPopulations;
     void Start(){
         graphDisplay = transform.Find("GraphDisplay").GetComponent<RectTransform>();
-        YaxisTop = GameObject.Find("Canvas/Panel/Graph/YaxisTop").GetComponent<Text>();
-        YaxisMid = GameObject.Find("Canvas/Panel/Graph/YaxisMid").GetComponent<Text>();
-        YaxisBottom = GameObject.Find("Canvas/Panel/Graph/YaxisBottom").GetComponent<Text>();
+        YaxisTop = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisTop").GetComponent<Text>();
+        YaxisMid = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisMid").GetComponent<Text>();
+        YaxisBot = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisBot").GetComponent<Text>();
         //create list of values to test 
         List<int> values = new List<int>() { 20, 60, 80, 30, 40, 90, 16, 16, 20, 60, 80 };
         displayGraph(values);
@@ -101,7 +101,7 @@ public class Graph : MonoBehaviour{
         //given the value, display it
         float graphHeight = graphDisplay.sizeDelta.y;
         //distance between bars
-        float dist = 60f;
+        float dist = 40f;
         int min = numInfected[0];
         int max = 0;
         for (int i = 0; i < numInfected.Count; i++)
@@ -122,9 +122,10 @@ public class Graph : MonoBehaviour{
             }
         }
         int mid = max - min;
+        max += 10;
         YaxisTop.text = max.ToString();
         YaxisMid.text = mid.ToString();
-        YaxisBottom.text = min.ToString();
+        YaxisBot.text = min.ToString();
         //x axis will be time but how do we want to do that, like a set number of ways or what?
 
     }

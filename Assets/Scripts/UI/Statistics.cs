@@ -11,6 +11,7 @@ public class Statistics : MonoBehaviour{
     public static uint populationStat;
     public static uint numInfectedStat;
     public static uint numDeathsStat; 
+    //numdays
 
     // Start is called before the first frame update
     void Start(){
