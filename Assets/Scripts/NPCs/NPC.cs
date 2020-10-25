@@ -16,8 +16,9 @@ public class NPC : MonoBehaviour {
     public Queue<Task> tasks;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer meshRenderer;
-
-    private float deathChance = 0f;
+    
+    private bool isDead = false;
+    private float deathChance = 0.0f;
     
 
     //For creating line renderer object
@@ -42,31 +43,66 @@ public class NPC : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+
+
         //For drawing line in the world space, provide the x,y,z values
         //lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
-        if(tasks.Count != 0) {
-            Task currentTask = tasks.Peek();
-            if (currentTask.isDone) {
-                tasks.Dequeue();
-                // Return home when finished all tasks
-                if(tasks.Count == 0){
-                    agent.SetDestination(house.Find("Door").transform.position);
+
+
+        if (!isDead)
+        {
+            if (tasks.Count != 0)
+            {
+                Task currentTask = tasks.Peek();
+                if (currentTask.isDone)
+                {
+                    tasks.Dequeue();
+                    // Return home when finished all tasks
+                    if (tasks.Count == 0)
+                    {
+                        agent.SetDestination(house.Find("Door").transform.position);
+                    }
+                }
+
+                // Haven't started moving towards location yet
+                if (!currentTask.enRoute)
+                {
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas))
+                    {
+                        agent.SetDestination(hit.position);
+                        currentTask.enRoute = true;
+                        //lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
+                    }
+                }
+                // Reached destination; initate task
+                else if (currentTask.inProgress)
+                {
+                    // Hide NPC until task is finished
+                    StartCoroutine(waitForTaskCompletion(currentTask));
                 }
             }
-            // Haven't started moving towards location yet
-            if (!currentTask.enRoute) {
-                NavMeshHit hit;
-                if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
-                    agent.SetDestination(hit.position);
-                    currentTask.enRoute = true;
-                    //lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
-                }
+
+
+            if (isInfected)
+            {
+                StartCoroutine(CheckForDeath());
             }
-            // Reached destination; initate task
-            else if (currentTask.inProgress) {
-                // Hide NPC until task is finished
-                StartCoroutine(waitForTaskCompletion(currentTask));
-            }
+
+        }
+        else if (agent && agent.destination.x == Disease.deathPosition.x && agent.destination.z == Disease.deathPosition.z && agent.remainingDistance < 0.01f) {
+            Debug.Log("Made it to death");
+            Destroy(GetComponent<Rigidbody>());
+            Destroy(GetComponent<NavMeshAgent>());
+            Destroy(GetComponent<CapsuleCollider>());
+            Destroy(GetComponent<Animator>());
+
+            agent = null;
+
+            transform.rotation = Quaternion.LookRotation(new Vector3(90f, 0f, 0f));
+            transform.Rotate(new Vector3(-90f, 0f, 90f));
+            transform.Translate(0f, 0f, Disease.deathHeight);
+            Disease.deathHeight += 0.1f;
         }
     }
 
@@ -100,14 +136,19 @@ public class NPC : MonoBehaviour {
 
     IEnumerator CheckForDeath()
     {
-        if (isInfected) {
-            System.Random rnd = new System.Random();
-            float r = rnd.Next() / 100f;
+        if (isInfected && !isDead) { // chekcs here in case we go from infected -> not infected (survive the disease)
+            //Debug.Log("Checking for death");
 
+            System.Random rnd = new System.Random();
+            float r = rnd.Next(100) / 100f;
 
             if (r < deathChance) {
+                Debug.Log("DEADDDDDDDD");
                 // for now, when npc dies it is simply removed from world
-                Destroy(gameObject);
+                agent.SetDestination(Disease.deathPosition);
+                isDead = true;
+            
+                //Destroy(gameObject);
             }
 
             yield return new WaitForSeconds(10f); // Wait a given amount before checking if dead again

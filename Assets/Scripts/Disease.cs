@@ -12,10 +12,13 @@ public class Disease
         Cough,
     }
 
+    public static Vector3 deathPosition = new Vector3(-91f, 0f,-71f);
+    public static float deathHeight = 0f;
+
     // percent added to death rate due to condition
     public Dictionary<Condition, float> conditionEffects = new Dictionary<Condition, float> { 
         {Condition.Asthma, 0.2f } 
-    } ;
+    };
 
     public static float infectionRate = 0.50f;
     public static float spreadDistance = 6f;
@@ -23,7 +26,7 @@ public class Disease
     public bool active = false;
 
     public static float getChanceOfDeath(NPC npc)  {
-     
-        return 0f;
+        
+        return 0.2f;
     }
 }

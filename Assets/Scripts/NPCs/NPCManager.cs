@@ -18,7 +18,7 @@ public class NPCManager : MonoBehaviour {
     public static List<NPC> npcList = new List<NPC>();
 
     void Start() {
-        Time.timeScale = 50f;
+        Time.timeScale = 2f;
         Time.fixedDeltaTime = Time.fixedDeltaTime * Time.timeScale;
         System.Random rnd = new System.Random();
         int housesLength = houses.Count;
@@ -35,7 +35,7 @@ public class NPCManager : MonoBehaviour {
                 navMeshAgent.Warp(hit.position); 
             } else {
                 Debug.Log("ERROR FINDING SAMPLE POSITION");
-            }
+            }               
 
             NPC newNPC = newNPCObject.AddComponent<NPC>();
             List<Task> currentTasks = new List<Task>();

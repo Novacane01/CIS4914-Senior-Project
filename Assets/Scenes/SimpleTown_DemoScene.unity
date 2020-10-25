@@ -14959,6 +14959,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773391982}
     m_Modifications:
+    - target: {fileID: 100000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -70
@@ -18916,6 +18920,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773391982}
     m_Modifications:
+    - target: {fileID: 100000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -130
@@ -35705,6 +35713,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773391982}
     m_Modifications:
+    - target: {fileID: 100000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -110
@@ -49535,6 +49547,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773391982}
     m_Modifications:
+    - target: {fileID: 100000, guid: 1937bbcfb7d222142b5bf5fbfd7cd059, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1937bbcfb7d222142b5bf5fbfd7cd059, type: 3}
       propertyPath: m_LocalPosition.x
       value: -150
@@ -57912,6 +57928,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773391982}
     m_Modifications:
+    - target: {fileID: 100000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ba4896b7cb5e2af46a055b830ffc593b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -90
@@ -80438,7 +80458,7 @@ MonoBehaviour:
   - {fileID: 1679171541}
   - {fileID: 1897058436}
   - {fileID: 1372481164}
-  numberOfTasks: 5
+  numberOfTasks: 10
   PopulationList: {fileID: 1663845034}
   population: 45
   initialNumInfected: 3
