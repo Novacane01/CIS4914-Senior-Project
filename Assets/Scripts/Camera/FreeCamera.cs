@@ -33,7 +33,7 @@ public class FreeCamera : MonoBehaviour {
         //Keyboard commands
         Vector3 p = GetBaseInput();
         if (Input.GetKey(KeyCode.LeftShift)) {
-            totalRun += Time.deltaTime;
+            totalRun += Time.deltaTime / Time.timeScale;
             p = p * totalRun * shiftAdd;
             p.x = Mathf.Clamp(p.x, -maxShift, maxShift);
             p.y = Mathf.Clamp(p.y, -maxShift, maxShift);
@@ -44,7 +44,7 @@ public class FreeCamera : MonoBehaviour {
             p = p * mainSpeed;
         }
 
-        p = p * Time.deltaTime;
+        p = p * Time.deltaTime / Time.timeScale;
         Vector3 newPosition = transform.position;
         if (Input.GetKey(KeyCode.Space)) { //If player wants to move on X and Z axis only
             transform.Translate(p);
