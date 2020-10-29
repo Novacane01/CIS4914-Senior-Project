@@ -26,9 +26,10 @@ public class UpdateText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         num += 1;
-        txtInfections.text = Config.initInfectPop.ToString();
-        txtDeaths.text = num.ToString();
-        txtPopulations.text = Config.initPop.ToString();
+        txtInfections.text = Statistics.numInfected.ToString();
+        txtDeaths.text = Statistics.numDeaths.ToString();
+        txtPopulations.text = Statistics.initPop.ToString();
     }
 }

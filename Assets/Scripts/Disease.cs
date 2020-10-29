@@ -20,7 +20,8 @@ public class Disease
         {Condition.Asthma, 0.2f } 
     };
 
-    public static float infectionRate = 0.50f;
+    //public static float infectionRate = 0.50f;
+    public static float infectionRate = Statistics.initRate;
     public static float spreadDistance = 6f;
     public static int incubationTime = 0; // Days
     public bool active = false;

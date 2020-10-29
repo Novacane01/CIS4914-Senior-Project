@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour {
     public Queue<Task> tasks;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer meshRenderer;
-    
+    public static uint numDeaths = 0;
     private bool isDead = false;
     private float deathChance = 0.0f;
     
@@ -156,7 +156,7 @@ public class NPC : MonoBehaviour {
                 // for now, when npc dies it is simply removed from world
                 agent.SetDestination(Disease.deathPosition);
                 isDead = true;
-            
+                numDeaths++;
                 //Destroy(gameObject);
             }
 

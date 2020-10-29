@@ -14,7 +14,10 @@ public class UIManager : MonoBehaviour {
     }
 
     public void displayDayResults() {
-        // Talk with Graph class and display daily graph
+        //call display panel here
+        //should have a close button
+        
+
     }
 
 }
