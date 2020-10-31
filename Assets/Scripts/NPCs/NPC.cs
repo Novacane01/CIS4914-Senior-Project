@@ -23,6 +23,8 @@ public class NPC : MonoBehaviour {
     public bool isImmune = false;
 
     private int daysWithDisease = 0;
+    public static uint numDeaths = 0;
+    private bool isDead = false;
     private float deathChance = 0.0f;
     
 
@@ -141,8 +143,7 @@ public class NPC : MonoBehaviour {
 
     private bool checkForDeath() {
         if (isInfected && !isDead) { // chekcs here in case we go from infected -> not infected (survive the disease)
-            //Debug.Log("Checking for death");
-
+        
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
 
@@ -157,6 +158,7 @@ public class NPC : MonoBehaviour {
             }
 
         } else if(isDead) {
+            numDeaths++;
             return true;
         }
         return false;
