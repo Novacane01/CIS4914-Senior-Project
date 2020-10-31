@@ -22,11 +22,10 @@ public class Disease
 
     public static float infectionRate = 0.50f;
     public static float spreadDistance = 6f;
-    public static int incubationTime = 0; // Days
+    public static int incubationTime = 14; // Days
     public bool active = false;
 
     public static float getChanceOfDeath(NPC npc)  {
-        
         return 0.2f;
     }
 }

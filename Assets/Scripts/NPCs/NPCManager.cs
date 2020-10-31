@@ -76,6 +76,12 @@ public class NPCManager : MonoBehaviour {
                 npcsFinished++;
                 if(npcsFinished == population) {
                     dayFinished.Invoke();
+                    foreach (NPC npc in npcList) {
+                        if(npc.isDead) {
+                            npcList.Remove(npc);
+                            population--;
+                        }
+                    }
                 }
             });
             npcList.Add(newNPC);

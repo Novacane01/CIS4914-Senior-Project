@@ -19,13 +19,15 @@ public class NPC : MonoBehaviour {
     public Queue<Task> tasks;
     public NavMeshAgent agent;
     public SkinnedMeshRenderer meshRenderer;
-    
-    private bool isDead = false;
+    public bool isDead = false;
+    public bool isImmune = false;
+
+    private int daysWithDisease = 0;
     private float deathChance = 0.0f;
     
 
     //For creating line renderer object
-    LineRenderer lineRenderer;
+    //LineRenderer lineRenderer;
 
 
     // Start is called before the first frame update
@@ -86,13 +88,6 @@ public class NPC : MonoBehaviour {
                     StartCoroutine(waitForTaskCompletion(currentTask));
                 }
             }
-
-
-            if (isInfected)
-            {
-                StartCoroutine(CheckForDeath());
-            }
-
         }
         else if (agent && agent.destination.x == Disease.deathPosition.x && agent.destination.z == Disease.deathPosition.z && agent.remainingDistance < 0.01f) {
             Debug.Log("Made it to death");
@@ -134,6 +129,7 @@ public class NPC : MonoBehaviour {
 
     IEnumerator waitUntilHome() {
         yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f));
+        isDead = checkForDeath();
         completedDay.Invoke();
     }
 
@@ -143,8 +139,7 @@ public class NPC : MonoBehaviour {
     }
 
 
-    IEnumerator CheckForDeath()
-    {
+    private bool checkForDeath() {
         if (isInfected && !isDead) { // chekcs here in case we go from infected -> not infected (survive the disease)
             //Debug.Log("Checking for death");
 
@@ -152,16 +147,18 @@ public class NPC : MonoBehaviour {
             float r = rnd.Next(100) / 100f;
 
             if (r < deathChance) {
-                Debug.Log("DEADDDDDDDD");
-                // for now, when npc dies it is simply removed from world
-                agent.SetDestination(Disease.deathPosition);
-                isDead = true;
-            
-                //Destroy(gameObject);
+                return true;
             }
 
-            yield return new WaitForSeconds(10f); // Wait a given amount before checking if dead again
-            CheckForDeath();
+            daysWithDisease++;
+            if(daysWithDisease == Disease.incubationTime) {
+                isInfected = false;
+                isImmune = true;
+            }
+
+        } else if(isDead) {
+            return true;
         }
+        return false;
     }
 }
