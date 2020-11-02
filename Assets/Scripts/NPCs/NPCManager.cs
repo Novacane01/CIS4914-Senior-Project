@@ -20,14 +20,17 @@ public class NPCManager : MonoBehaviour {
     public GameObject PopulationList;
     public uint population;
     public uint initialNumInfected = Config.initInfectPop;
-    //public int infectionRate = Config.initRate;
+    public int infectionRate = Config.initRate;
     public static uint numInfected;
+    //public List<NPC> infectedIndividuals, susceptibleIndividuals, recoveredIndividuals;
     public List<GameObject> npcsToLoad;
     public static List<NPC> npcList = new List<NPC>();
 
     System.Random rnd = new System.Random();
 
     void Start() {
+        //infectedIndividuals = susceptibleIndividuals = recoveredIndividuals = new List<NPC>();
+
         totalNumTasks = tasksPerPerson * population;
         int housesLength = houses.Count;
         int buildingsLength = buildings.Count;
@@ -47,29 +50,38 @@ public class NPCManager : MonoBehaviour {
             }
 
             NPC newNPC = newNPCObject.AddComponent<NPC>();
-            List<Task> currentTasks = new List<Task>();
 
+            List<Task> currentTasks = new List<Task>();
             for (int j = 0; j < tasksPerPerson; j++) {
                 currentTasks.Add(new Task(buildings[rnd.Next(buildingsLength)].Find("Door").transform));
             }
 
+            // Assign tasks and houses to NPCs
             newNPC.loadTasks(currentTasks.ToArray());
             newNPC.house = house;
             newNPC.index = i;
+
+            // Set NPC names
             if (newNPC.gameObject.name.Contains("Female")) {
                 newNPC.name = string.Format("{0} {1}", femaleFirstNames[rnd.Next(femaleFirstNames.Count)], lastNames[rnd.Next(lastNames.Count)]);
             }
             else if (newNPC.gameObject.name.Contains("Male")) {
                 newNPC.name = string.Format("{0} {1}", maleFirstNames[rnd.Next(maleFirstNames.Count)], lastNames[rnd.Next(lastNames.Count)]);
             }
+
             // If initial number fo infected is greater than 0 set npc to infected
             if (i < initialNumInfected) {
                 newNPC.isInfected = true;
+                //infectedIndividuals.Add(newNPC);
             }
+            //else {
+            //    susceptibleIndividuals.Add(newNPC);
+            //}
             newNPC.completedDay.AddListener(() => {
                 npcsFinished++;
                 if(npcsFinished == population) {
                     dayFinished.Invoke();
+                    npcsFinished = 0;
                 }
             });
             npcList.Add(newNPC);

@@ -12,9 +12,12 @@ public class GameManager : MonoBehaviour {
     void Start() {
         npcManager = GameObject.Find("NPCManager").GetComponent<NPCManager>();
         timeManager = new TimeManager(); /*GameObject.Find("TimeManager").GetComponent<TimeManager>();*/
-        //uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
-        npcManager.dayFinished.AddListener(() => timeManager.endDay());
+        npcManager.dayFinished.AddListener(() => {
+            timeManager.endDay();
+            npcManager.reAssignTasks();
+        });
 
         gameState = GameState.PLAYING;
     }
@@ -26,6 +29,6 @@ public class GameManager : MonoBehaviour {
         //    uiManager.displayDayResults();
         //    timeManager.incrementDay();
         //}
-        timeManager.directionalLight.intensity -= (timeManager.lightIntensity/timeManager.timeInDaySeconds) * Time.deltaTime;
+        timeManager.directionalLight.intensity = Mathf.Sin(Time.time)*Time.deltaTime;
     }
 }
