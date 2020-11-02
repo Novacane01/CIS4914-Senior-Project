@@ -5,18 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public enum GameState { PLAYING, PAUSED};
     public static GameState gameState;
-    public static NPCManager npcManager;
     public static TimeManager timeManager;
     public static UIManager uiManager;
     // Start is called before the first frame update
     void Start() {
-        npcManager = GameObject.Find("NPCManager").GetComponent<NPCManager>();
         timeManager = new TimeManager(); /*GameObject.Find("TimeManager").GetComponent<TimeManager>();*/
-        uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
-        npcManager.dayFinished.AddListener(() => {
+        NPCManager.instance.dayFinished.AddListener(() => {
             timeManager.endDay();
-            npcManager.reAssignTasks();
         });
 
         gameState = GameState.PLAYING;
@@ -29,6 +25,6 @@ public class GameManager : MonoBehaviour {
         //    uiManager.displayDayResults();
         //    timeManager.incrementDay();
         //}
-        timeManager.directionalLight.intensity = Mathf.Sin(Time.time)*Time.deltaTime;
+        //timeManager.directionalLight.intensity = Mathf.Sin(Time.time)*Time.deltaTime;
     }
 }
