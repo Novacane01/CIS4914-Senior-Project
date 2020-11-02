@@ -26,7 +26,6 @@ public class UIManager : MonoBehaviour {
         //DeathsDay.text = currDeaths.ToString();
         //InfectedDay.text = Statistics.numInfected.ToString();
         //DaysLeft.text = Statistics.currentDay.ToString();
-
     }
 
 }

@@ -2,21 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Disease : MonoBehaviour
+public class Disease
 {
-    public static float infectionRate = 0.01f;
-    public static float spreadDistance = 6f;
-    public static int incubationTime = 0; // Days
-    public bool active = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public enum Condition
     {
-        
+        Asthma,
+        Fever,
+        Cough,
     }
 
-    // Update is called once per frame
-    void Update() {
+    public static Vector3 deathPosition = new Vector3(-91f, 0f,-71f);
+    public static float deathHeight = 0f;
 
+    // percent added to death rate due to condition
+    public Dictionary<Condition, float> conditionEffects = new Dictionary<Condition, float> { 
+        {Condition.Asthma, 0.2f } 
+    };
+
+    //public static float infectionRate = 0.50f;
+    public static float infectionRate = Statistics.initRate;
+    public static float spreadDistance = 6f;
+    public static int incubationTime = 14; // Days
+    public bool active = false;
+
+    public static float getChanceOfDeath(NPC npc)  {
+        return 0.2f;
     }
 }
