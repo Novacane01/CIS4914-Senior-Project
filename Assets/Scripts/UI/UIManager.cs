@@ -22,10 +22,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void displayDayResults() {
-        // int currDeaths = Statistics.numDeaths - Statistics.currPop
-        //DeathsDay.text = currDeaths.ToString();
-        //InfectedDay.text = Statistics.numInfected.ToString();
-        //DaysLeft.text = Statistics.currentDay.ToString();
+
     }
 
 }
