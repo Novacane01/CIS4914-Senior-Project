@@ -7,7 +7,7 @@ public class CameraManager : MonoBehaviour {
         NPC, FREE, WORLD
     };
     public Camera npcCamera;
-    public Camera worldCamera;
+    public WorldCameras worldCameras;
     public Camera freeCamera;
     public CameraState cameraState;
     public static InfoPanel infoPanel;
@@ -24,19 +24,19 @@ public class CameraManager : MonoBehaviour {
                 infoPanel.gameObject.SetActive(true);
                 infoPanel.updatePanel(NPCCamera.currentNPC.GetComponent<NPC>());
                 npcCamera.enabled = true;
-                worldCamera.enabled = false;
+                worldCameras.Disable();
                 freeCamera.enabled = false;
                 break;
             case CameraState.WORLD:
                 infoPanel.gameObject.SetActive(false);
                 npcCamera.enabled = false;
-                worldCamera.enabled = true;
+                worldCameras.Enable();
                 freeCamera.enabled = false;
                 break;
             case CameraState.FREE:
                 infoPanel.gameObject.SetActive(false);
                 npcCamera.enabled = false;
-                worldCamera.enabled = false;
+                worldCameras.Disable();
                 freeCamera.enabled = true;
                 break;
             default:
