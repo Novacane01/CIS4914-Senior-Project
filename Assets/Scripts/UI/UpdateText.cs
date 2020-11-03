@@ -16,9 +16,9 @@ public class UpdateText : MonoBehaviour
     void Start()
     {
         num = 1;
-        txtInfections = GameObject.Find("Canvas/Panel/TextDisplay/Infections").GetComponent<Text>();
-        txtDeaths = GameObject.Find("Canvas/Panel/TextDisplay/Deaths").GetComponent<Text>();
-        txtPopulations = GameObject.Find("Canvas/Panel/TextDisplay/Population").GetComponent<Text>();
+        txtInfections = GameObject.Find("UI/StatsUI/Panel/TextDisplay/Infections").GetComponent<Text>();
+        txtDeaths = GameObject.Find("UI/StatsUI/Panel/TextDisplay/Deaths").GetComponent<Text>();
+        txtPopulations = GameObject.Find("UI/StatsUI/Panel/TextDisplay/Population").GetComponent<Text>();
     }
 
     //get indiviual components?? i think i will if i need to put them all in 1 place, unless i want them all as individual scripts
@@ -26,9 +26,10 @@ public class UpdateText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         num += 1;
-        txtInfections.text = num.ToString();
-        txtDeaths.text = num.ToString();
-        txtPopulations.text = num.ToString();
+        txtInfections.text = Statistics.numInfected.ToString();
+        txtDeaths.text = Statistics.numDeaths.ToString();
+        txtPopulations.text = Statistics.initPop.ToString();
     }
 }

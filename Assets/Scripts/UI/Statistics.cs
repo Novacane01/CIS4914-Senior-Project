@@ -6,31 +6,31 @@ using UnityEngine;
 
 public class Statistics : MonoBehaviour{
 
-    //# who are immunce
-    public NPCManager nPCManager;
-    public uint populationStat;
-    private uint numInfectedStat;
-    private uint numDeathsStat; 
+    //initial from Config
+    public static uint initPop = Config.initPop;
+    public static uint initNumInfected = Config.initNumInfected;
+    public static float initRate = Config.initRate;
+    public static uint numDays = Config.numDays;
+    public static uint tasksPerDay = Config.tasksPerDay;
+    public static uint taskDuration = Config.taskDuration;
+    // current and relevant information
+    public static uint numInfected;
+    public static uint currentDay;
+    public static uint currPop;
+    public static uint numDeaths;
 
     // Start is called before the first frame update
     void Start(){
-        populationStat = 0;
-        numInfectedStat = 0;
-        numDeathsStat = 0;
-}
+
+    }
 
     // Update is called once per frame
     void Update(){
-        //populationStat = nPCManager.population;
-        //numInfectedStat = nPCManager.numInfected;
-        //private uintnumDeaths = 0; 
-        populationStat +=1;
-        numInfectedStat += 1;
-        numDeathsStat += 1;
+            numInfected = NPCManager.instance.numInfected;
+            currentDay = TimeManager.currentDay;
+            currPop = initPop - NPC.numDeaths;
+            numDeaths = NPC.numDeaths;
     }
-    //adds on for later
-    //social distanced
-    //masks
-    //vacinne??
+
 
 }

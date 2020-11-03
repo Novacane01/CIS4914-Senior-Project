@@ -1,21 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class Building : MonoBehaviour {
-    List<NPC> occupancy = new List<NPC>();
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag.Equals("NPC")) {
-            NPC npc = other.gameObject.GetComponent<NPC>();
-            npc.startTask();
-            occupancy.Add(npc);
-            Disease.calculateSpread(occupancy);
-            other.gameObject.GetComponent<NPC>().meshRenderer.enabled = false;
+abstract public class Building : MonoBehaviour {
+    protected List<NPC> occupancy = new List<NPC>();
+
+    public void calculateSpread() {
+        List<NPC> infected = occupancy.FindAll(npc => npc.isInfected).ToList();
+        int numInfected = infected.Count;
+        System.Random rnd = new System.Random();
+        foreach (NPC npc in occupancy) {
+            float r = rnd.Next(100) / 100f;
+            float t = 1 - Mathf.Pow(1 - Disease.infectionRate, numInfected);
+            if (r <= t && !npc.isInfected) {
+                NPCManager.instance.numInfected++;
+                npc.isInfected = true;
+                Debug.Log(string.Format("{0} people have contracted chlamydia", NPCManager.instance.numInfected));
+            }
         }
     }
-    private void OnTriggerExit(Collider other) {
-        if (other.tag.Equals("NPC")) {
-            other.gameObject.GetComponent<NPC>().meshRenderer.enabled = true;
-        }
-    }
+
+    abstract public void OnNpcEnter(Collider other);
+    abstract public void OnNpcLeave(Collider other);
 }
