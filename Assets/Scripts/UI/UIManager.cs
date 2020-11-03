@@ -8,14 +8,12 @@ public class UIManager : MonoBehaviour {
     Text DeathsDay;
     Text InfectedDay;
     Text DaysLeft;
-    //public static DailyReport dailyReport;
+
    
     void Start() {
-        //dailyReport = GameObject.Find("DailyReport").GetComponent<DailyReport>();
-        //DeathsDay = GameObject.Find("UI/DaySummary/Panel/TextDisplay/DeathsDay").GetComponent<Text>();
-        //InfectedDay = GameObject.Find("UI/StatsUI/Panel/TextDisplay/InfectedDay").GetComponent<Text>();
-        //DaysLeft = GameObject.Find("UI/StatsUI/Panel/TextDisplay/DaysLeft").GetComponent<Text>();
-
+        DeathsDay = GameObject.Find("UI/DaySummary/Panel/TextDisplay/DeathsDay").GetComponent<Text>();
+        InfectedDay = GameObject.Find("UI/StatsUI/Panel/TextDisplay/InfectedDay").GetComponent<Text>();
+        DaysLeft = GameObject.Find("UI/StatsUI/Panel/TextDisplay/DaysLeft").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -24,11 +22,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void displayDayResults() {
-        //dailyReport.Show();
-        // int currDeaths = Statistics.numDeaths - Statistics.currPop
-        //DeathsDay.text = currDeaths.ToString();
-        //InfectedDay.text = Statistics.numInfected.ToString();
-        //DaysLeft.text = Statistics.currentDay.ToString();
+
     }
 
 }

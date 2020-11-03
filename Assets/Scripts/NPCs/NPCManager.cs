@@ -23,7 +23,7 @@ public class NPCManager : MonoBehaviour {
     public uint initialNumInfected = Statistics.initNumInfected;
     public float infectionRate = Statistics.initRate;
     public uint numInfected = 0, numDead = 0;
-    //public List<NPC> infectedIndividuals, susceptibleIndividuals, recoveredIndividuals;
+
     public List<GameObject> npcsToLoad;
     public List<NPC> npcList = new List<NPC>();
 
@@ -39,7 +39,7 @@ public class NPCManager : MonoBehaviour {
     }
 
     void Start() {
-        //infectedIndividuals = susceptibleIndividuals = recoveredIndividuals = new List<NPC>();
+
         totalNumTasks = tasksPerPerson * population;
         
         int housesLength = houses.Count;
@@ -82,13 +82,10 @@ public class NPCManager : MonoBehaviour {
             // If initial number fo infected is greater than 0 set npc to infected
             if (i < initialNumInfected) {
                 newNPC.isInfected = true;
-                //infectedIndividuals.Add(newNPC);
                 numInfected++;
                 initialNumInfected--;
             }
-            //else {
-            //    susceptibleIndividuals.Add(newNPC);
-            //}
+
             newNPC.completedDay.AddListener(() => {
                 npcsFinished++;
                 if(npcsFinished == population) {
