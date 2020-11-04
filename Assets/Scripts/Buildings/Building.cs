@@ -13,9 +13,9 @@ abstract public class Building : MonoBehaviour {
             float r = rnd.Next(100) / 100f;
             float t = 1 - Mathf.Pow(1 - Disease.infectionRate, numInfected);
             if (r <= t && !npc.isInfected) {
-                NPCManager.numInfected++;
+                NPCManager.instance.numInfected++;
                 npc.isInfected = true;
-                Debug.Log(string.Format("{0} people have contracted chlamydia", NPCManager.numInfected));
+                Debug.Log(string.Format("{0} people have contracted chlamydia", NPCManager.instance.numInfected));
             }
         }
     }

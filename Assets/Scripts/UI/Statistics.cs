@@ -26,13 +26,11 @@ public class Statistics : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-
-            numInfected = NPCManager.numInfected;
+            numInfected = NPCManager.instance.numInfected;
             currentDay = TimeManager.currentDay;
             currPop = initPop - NPC.numDeaths;
             numDeaths = NPC.numDeaths;
-
-}
+    }
 
 
 }

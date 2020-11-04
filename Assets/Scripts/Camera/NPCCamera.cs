@@ -14,13 +14,13 @@ public class NPCCamera : MonoBehaviour {
     public void changeNPC(string direction) {
         switch (direction) {
             case "Next":
-                if (currentNPC.index < NPCManager.npcList.Count - 1) {
-                    currentNPC = NPCManager.npcList[currentNPC.index + 1];
+                if (currentNPC.index < NPCManager.instance.npcList.Count - 1) {
+                    currentNPC = NPCManager.instance.npcList[currentNPC.index + 1];
                 }
                 break;
             case "Previous":
                 if (currentNPC.index > 0) {
-                    currentNPC = NPCManager.npcList[currentNPC.index - 1];
+                    currentNPC = NPCManager.instance.npcList[currentNPC.index - 1];
                 }
                 break;
             default:

@@ -21,7 +21,6 @@ public class Config : MonoBehaviour {
     public static uint tasksPerDay = 6;
     public static uint taskDuration = 5;
 
-
     private void ValueChange() {
         //put numeric constraint
         try {
