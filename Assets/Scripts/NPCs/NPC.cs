@@ -24,7 +24,6 @@ public class NPC : MonoBehaviour {
 
     private int daysWithDisease = 0;
     public static uint numDeaths = 0;
-    private bool isDead = false;
     private float deathChance = 0.0f;
     
 
