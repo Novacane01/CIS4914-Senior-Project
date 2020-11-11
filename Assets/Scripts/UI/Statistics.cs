@@ -1,18 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 
-public class Statistics : MonoBehaviour{
+public class Statistics : MonoBehaviour {
 
     //initial from Config
-    public static uint initPop = Config.initPop;
-    public static uint initNumInfected = Config.initNumInfected;
-    public static float initRate = Config.initRate;
-    public static uint numDays = Config.numDays;
-    public static uint tasksPerDay = Config.tasksPerDay;
-    public static uint taskDuration = Config.taskDuration;
+    public static uint initPop { get; } = Config.initPop;
+    public static uint initNumInfected { get; } = Config.initNumInfected;
+    public static float initRate { get; } = Config.initRate;
+    public static uint numDays { get; } = Config.numDays;
+    public static uint tasksPerDay { get; } = Config.tasksPerDay;
+    public static uint taskDuration { get; } = Config.taskDuration;
     // current and relevant information
     public static uint numInfected;
     public static uint currentDay;
@@ -26,10 +23,12 @@ public class Statistics : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+            Debug.Log("Tasks per day: " + tasksPerDay);
+
             numInfected = NPCManager.instance.numInfected;
             currentDay = TimeManager.currentDay;
-            currPop = initPop - NPC.numDeaths;
-            numDeaths = NPC.numDeaths;
+            currPop = initPop - NPCManager.instance.numDeaths;
+            numDeaths = NPCManager.instance.numDeaths;
     }
 
 

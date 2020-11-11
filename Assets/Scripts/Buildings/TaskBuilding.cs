@@ -5,18 +5,23 @@ public class TaskBuilding : Building
     public override void OnNpcEnter(Collider other)
     {
         NPC npc = other.gameObject.GetComponent<NPC>();
-        if (npc.tasks.Count != 0 && npc.tasks.Peek().location.parent == transform)
+        Transform npcLocation = npc.currentTaskLocation();
+
+        if (npcLocation == transform)
         {
+            occupancy.Add(npc);
+            
+            npc.agent.enabled = false;
+            npc.diasble();
             npc.startTask();
             calculateSpread();
-            occupancy.Add(npc);
-            npc.meshRenderer.enabled = false;
         }
     }
 
     public override void OnNpcLeave(Collider other)
     {
         NPC npc = other.gameObject.GetComponent<NPC>();
-        npc.meshRenderer.enabled = true;
+        Transform npcLocation = npc.currentTaskLocation();
+        npc.enable();
     }
 }

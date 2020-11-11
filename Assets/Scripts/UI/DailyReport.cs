@@ -30,12 +30,12 @@ public class DailyReport : MonoBehaviour {
     }
 
     public void Show() {
-        numDead = NPCManager.instance.numDead - numDead;
-        numInfected = NPCManager.instance.numInfected - numInfected;
+        uint newDead = NPCManager.instance.numDeaths - numDead;
+        uint newInfected = NPCManager.instance.numInfected - numInfected;
+        numDead = NPCManager.instance.numDeaths;
+        numInfected = NPCManager.instance.numInfected;
         canvas.enabled = true;
-        deathText.text = string.Format("Deaths: {0}", numDead);
-        infectionText.text = string.Format("Infections: {0}", numInfected);
+        deathText.text = string.Format("New Deaths: {0}", newDead);
+        infectionText.text = string.Format("New Infections: {0}", newInfected);
     }
-
-
 }
