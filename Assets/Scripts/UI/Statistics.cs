@@ -9,7 +9,7 @@ public class Statistics : MonoBehaviour{
     //initial from Config
     public static uint initPop = Config.initPop;
     public static uint initNumInfected = Config.initNumInfected;
-    public static float initRate = Config.initRate;
+    public static float transRate = Config.transRate;
     public static uint numDays = Config.numDays;
     public static uint tasksPerDay = Config.tasksPerDay;
     public static uint taskDuration = Config.taskDuration;
@@ -18,6 +18,7 @@ public class Statistics : MonoBehaviour{
     public static uint currentDay;
     public static uint currPop;
     public static uint numDeaths;
+    public static uint numImmune;
 
     // Start is called before the first frame update
     void Start(){
@@ -26,10 +27,12 @@ public class Statistics : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
-            numInfected = NPCManager.instance.numInfected;
-            currentDay = TimeManager.currentDay;
-            currPop = initPop - NPC.numDeaths;
-            numDeaths = NPC.numDeaths;
+        numInfected = NPCManager.instance.numInfected;
+        currentDay = TimeManager.currentDay;
+        currPop = initPop - NPC.numDeaths;
+        numDeaths = NPC.numDeaths;
+        numImmune = NPC.numImmune;
+        
     }
 
 

@@ -24,6 +24,7 @@ public class NPC : MonoBehaviour {
 
     private int daysWithDisease = 0;
     public static uint numDeaths = 0;
+    public static uint numImmune = 0;
 
     private float deathChance = 0.0f;
     
@@ -146,8 +147,7 @@ public class NPC : MonoBehaviour {
         
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
-
-            if (r < deathChance) {
+            if (r > deathChance) {
                 return true;
             }
 
@@ -155,6 +155,7 @@ public class NPC : MonoBehaviour {
             if(daysWithDisease == Disease.incubationTime) {
                 isInfected = false;
                 isImmune = true;
+                numImmune++;
             }
 
         } else if(isDead) {

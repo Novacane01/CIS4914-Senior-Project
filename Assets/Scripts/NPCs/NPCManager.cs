@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class NPCManager : MonoBehaviour {
+public class NPCManager : MonoBehaviour
+{
     public static NPCManager instance = null;
     public UnityEvent dayFinished = new UnityEvent();
     public uint numDays = Statistics.numDays;
@@ -19,9 +21,9 @@ public class NPCManager : MonoBehaviour {
     public uint tasksCompleted = 0;
     public uint npcsFinished = 0;
     public GameObject PopulationList;
-    public uint population;
+    public uint population = 0;
     public uint initialNumInfected = Statistics.initNumInfected;
-    public float infectionRate = Statistics.initRate;
+    public float infectionRate = Statistics.transRate;
     public uint numInfected = 0, numDead = 0;
 
     public List<GameObject> npcsToLoad;
@@ -29,40 +31,48 @@ public class NPCManager : MonoBehaviour {
 
     System.Random rnd = new System.Random();
 
-    private void Awake() {
-        if (instance == null) {
+    private void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
         }
-        else if (instance != this) {
+        else if (instance != this)
+        {
             Destroy(gameObject);
         }
     }
 
-    void Start() {
-
+    void Start()
+    {
+        population = Statistics.initPop;
         totalNumTasks = tasksPerPerson * population;
-        
+        taksDuration = Statistics.taskDuration;
         int housesLength = houses.Count;
         int buildingsLength = buildings.Count;
         int npcLength = npcsToLoad.Count;
-        for (int i = 0; i < population; i++) {
+        for (int i = 0; i < population; i++)
+        {
             GameObject newNPCObject = Instantiate(npcsToLoad[rnd.Next(npcLength)], PopulationList.transform);
             NavMeshAgent navMeshAgent = newNPCObject.GetComponent<NavMeshAgent>();
             Transform house = houses[rnd.Next(housesLength)];
             Transform door = house.Find("Door").transform;
 
             NavMeshHit hit;
-            if (NavMesh.SamplePosition(door.position, out hit, 20f, NavMesh.AllAreas)) {
+            if (NavMesh.SamplePosition(door.position, out hit, 20f, NavMesh.AllAreas))
+            {
                 navMeshAgent.Warp(hit.position);
             }
-            else {
+            else
+            {
                 Debug.Log("ERROR FINDING SAMPLE POSITION");
-            }               
+            }
 
             NPC newNPC = newNPCObject.AddComponent<NPC>();
 
             List<Task> currentTasks = new List<Task>();
-            for (int j = 0; j < tasksPerPerson; j++) {
+            for (int j = 0; j < tasksPerPerson; j++)
+            {
                 currentTasks.Add(new Task(buildings[rnd.Next(buildingsLength)].Find("Door").transform));
             }
 
@@ -72,15 +82,18 @@ public class NPCManager : MonoBehaviour {
             newNPC.index = i;
 
             // Set NPC names
-            if (newNPC.gameObject.name.Contains("Female")) {
+            if (newNPC.gameObject.name.Contains("Female"))
+            {
                 newNPC.name = string.Format("{0} {1}", femaleFirstNames[rnd.Next(femaleFirstNames.Count)], lastNames[rnd.Next(lastNames.Count)]);
             }
-            else if (newNPC.gameObject.name.Contains("Male")) {
+            else if (newNPC.gameObject.name.Contains("Male"))
+            {
                 newNPC.name = string.Format("{0} {1}", maleFirstNames[rnd.Next(maleFirstNames.Count)], lastNames[rnd.Next(lastNames.Count)]);
             }
 
             // If initial number fo infected is greater than 0 set npc to infected
-            if (i < initialNumInfected) {
+            if (i < initialNumInfected)
+            {
                 newNPC.isInfected = true;
                 numInfected++;
                 initialNumInfected--;
@@ -88,11 +101,14 @@ public class NPCManager : MonoBehaviour {
 
             newNPC.completedDay.AddListener(() => {
                 npcsFinished++;
-                if(npcsFinished == population) {
+                if (npcsFinished == population)
+                {
                     dayFinished.Invoke();
                     npcsFinished = 0;
-                    foreach (NPC npc in npcList) {
-                        if(npc.isDead) {
+                    foreach (NPC npc in npcList.ToList())
+                    {
+                        if (npc.isDead)
+                        {
                             npcList.Remove(npc);
                             population--;
                         }
@@ -105,15 +121,19 @@ public class NPCManager : MonoBehaviour {
         NPCCamera.currentNPC = npcList[0];
     }
 
-    public void reAssignTasks() {
+    public void reAssignTasks()
+    {
         int buildingsLength = buildings.Count;
-        foreach (NPC npc in npcList) {
+        foreach (NPC npc in npcList)
+        {
             List<Task> currentTasks = new List<Task>();
-            for (int j = 0; j < tasksPerPerson; j++) {
+            for (int j = 0; j < tasksPerPerson; j++)
+            {
                 currentTasks.Add(new Task(buildings[rnd.Next(buildingsLength)].Find("Door").transform));
             }
             npc.loadTasks(currentTasks.ToArray());
         }
         DailyReport.instance.Hide();
+        Debug.Log("reassign tasks");
     }
 }
