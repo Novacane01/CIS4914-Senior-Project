@@ -10,8 +10,8 @@ public class SaveData : MonoBehaviour
 
     public Transform contentWindow;
     public Text text;
-    //public GameObject textObject;
-    // Start is called before the first frame update
+ 
+
     private void Start()
     {
         viewData();
@@ -19,7 +19,6 @@ public class SaveData : MonoBehaviour
 
     public void saveData()
     {
-        //string path = @"C:\Users\Ashley\Documents\test.txt";
         string path = Application.dataPath;
         path = path +"/data.txt";
         Debug.Log(path);
@@ -74,8 +73,4 @@ public class SaveData : MonoBehaviour
         Instantiate(text, contentWindow);
 
     }
-
-
-    // Update is called once per frame
-
 }

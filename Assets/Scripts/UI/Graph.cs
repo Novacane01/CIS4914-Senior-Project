@@ -49,10 +49,6 @@ public class Graph : MonoBehaviour{
             displayGraph(infectedList, Color.red);
             displayGraph(immuneList, Color.green);
             displayGraph(susceptibleList, Color.blue);
-            Debug.Log("currentDay");
-            Debug.Log(currentDay);
-            Debug.Log("TimeManager");
-            Debug.Log(TimeManager.currentDay);
         });
     }
 

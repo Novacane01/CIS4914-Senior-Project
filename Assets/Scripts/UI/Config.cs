@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
@@ -27,33 +25,31 @@ public class Config : MonoBehaviour {
             initPop = Convert.ToUInt32(popInput.text.ToString());
             initNumInfected = Convert.ToUInt32(infectedInput.text.ToString());
             transRate = Convert.ToSingle(transmissionInput.text.ToString());
-            tasksPerDay = Convert.ToUInt32(numDaysInput.text.ToString());
-            taskDuration = Convert.ToUInt32(taskNumInput.text.ToString());
-            numDays = Convert.ToUInt32(taskDurInput.text.ToString());
+            tasksPerDay = Convert.ToUInt32(taskNumInput.text.ToString());
+            taskDuration = Convert.ToUInt32(taskDurInput.text.ToString());
+            numDays = Convert.ToUInt32(numDaysInput.text.ToString());
         }
-        catch (FormatException) {
-            Debug.Log("given input is not a numeric value");
+        catch (FormatException e) {
+            Debug.Log("Given input is not a numeric value: " + e.ToString());
         }
 
     }
 
 
     public void OpenGame() {
-        Debug.Log("PLEASE");
         ValueChange();
-        Debug.Log(initPop);
-        Debug.Log(initNumInfected);
-        Debug.Log(transRate);
-        Debug.Log(numDays);
-        Debug.Log(tasksPerDay);
-        Debug.Log(taskDuration);
+        Debug.Log("Initial Population: " + initPop);
+        Debug.Log("Initial Num Infected: " + initNumInfected);
+        Debug.Log("Transmission Rate: " + transRate);
+        Debug.Log("Number of days: " + numDays);
+        Debug.Log("Tasks per day for each npc: " + tasksPerDay);
+        Debug.Log("Task duration: " + taskDuration);
         if (initPop == 0 || initNumInfected == 0 || transRate == 0) {
             Debug.Log("Popup window with stop message");
         }
         else {
             SceneManager.LoadScene(1);
         }
-
     }
 
 }

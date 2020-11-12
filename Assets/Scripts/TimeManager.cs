@@ -18,27 +18,26 @@ public class TimeManager {
     }
 
     public void endDay() {
+        currentDay++;
         if (Settings.dailyReportToggle.isOn) {
             if(currentDay >= Config.numDays) {
                 Debug.Log("No more days");
                 dailyReport.endShow();
             }
             else {
-                //dailyReport.Show();
-                dailyReport.endShow();
+                dailyReport.Show();
             }
         }
         else {
             incrementDay();
         }
-        Debug.Log("Day is over");
-        Debug.Log(currentDay);
+
+        if(currentDay < Config.numDays) {
+            Debug.Log("Next Day: " + currentDay);
+        }
     }
 
     public void incrementDay() {
-        directionalLight.intensity = lightIntensity;
-        currentDay++;
         NPCManager.instance.reAssignTasks();
-        Debug.Log("Going up in days");
     }
 }
