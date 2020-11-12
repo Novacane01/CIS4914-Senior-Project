@@ -24,14 +24,15 @@ public class TimeManager {
                 dailyReport.endShow();
             }
             else {
-                dailyReport.Show();
+                //dailyReport.Show();
+                dailyReport.endShow();
             }
         }
         else {
             incrementDay();
         }
         Debug.Log("Day is over");
-        Debug.Log(NPCManager.instance.numInfected);
+        Debug.Log(currentDay);
     }
 
     public void incrementDay() {

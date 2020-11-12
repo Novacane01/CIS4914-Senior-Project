@@ -128,8 +128,9 @@ public class Graph : MonoBehaviour{
     {
         System.Random rnd = new System.Random();
         float r = rnd.Next(100) / 100f;
-        Debug.Log("CHANCE FOR DEATH");
-        Debug.Log(r);
+
+        //Debug.Log("CHANCE FOR DEATH");
+        //Debug.Log(r);
     }
 
     private void CreateDot(Vector2 setPosition, Color dotColor) {
