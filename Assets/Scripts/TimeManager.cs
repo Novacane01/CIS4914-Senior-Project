@@ -14,12 +14,15 @@ public class TimeManager {
         directionalLight = GameObject.Find("Directional light").GetComponent<Light>();
         lightIntensity = directionalLight.intensity;
         timeInDaySeconds = Config.taskDuration * Config.tasksPerDay;
+
     }
 
     public void endDay() {
-        if(Settings.dailyReportToggle.isOn) {
+        currentDay++;
+        if (Settings.dailyReportToggle.isOn) {
             if(currentDay >= Config.numDays) {
-
+                Debug.Log("No more days");
+                dailyReport.endShow();
             }
             else {
                 dailyReport.Show();
@@ -28,12 +31,13 @@ public class TimeManager {
         else {
             incrementDay();
         }
-        Debug.Log("Day is over");
+
+        if(currentDay < Config.numDays) {
+            Debug.Log("Next Day: " + currentDay);
+        }
     }
 
     public void incrementDay() {
-        directionalLight.intensity = lightIntensity;
-        currentDay++;
         NPCManager.instance.reAssignTasks();
     }
 }

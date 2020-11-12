@@ -1,10 +1,12 @@
 ﻿using Assets.Scripts.NPCs;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class NPCManager : MonoBehaviour {
+public class NPCManager : MonoBehaviour
+{
     public static NPCManager instance = null;
     public UnityEvent dayFinished = new UnityEvent();
 
@@ -21,6 +23,7 @@ public class NPCManager : MonoBehaviour {
   
     public uint initialNumInfected = Statistics.initNumInfected;
     public uint numInfected { get; set; } = 0;
+    public uint numImmune { get; private set; } = 0;
     public uint numDeaths { get; private set; } = 0;
 
     public List<GameObject> npcsToLoad;
@@ -28,11 +31,14 @@ public class NPCManager : MonoBehaviour {
 
     System.Random rnd = new System.Random();
 
-    private void Awake() {
-        if (instance == null) {
+    private void Awake()
+    {
+        if (instance == null)
+        {
             instance = this;
         }
-        else if (instance != this) {
+        else if (instance != this)
+        {
             Destroy(gameObject);
         }
     }
@@ -45,7 +51,8 @@ public class NPCManager : MonoBehaviour {
             var newNPC = initNPC();
 
             // If initial number fo infected is greater than 0 set npc to infected
-            if (i < initialNumInfected) {
+            if (i < initialNumInfected)
+            {
                 newNPC.isInfected = true;
                 numInfected++;
                 initInfected--;
@@ -62,6 +69,7 @@ public class NPCManager : MonoBehaviour {
             npc.initializeDay(TaskManager.instance.assignTasks());
         }
         DailyReport.instance.Hide();
+        Debug.Log("reassign tasks");
     }
 
     private NPC initNPC() {
@@ -69,11 +77,8 @@ public class NPCManager : MonoBehaviour {
         NavMeshAgent agent = npcObject.GetComponent<NavMeshAgent>();
         NPC npc = npcObject.GetComponent<NPC>();
 
-
-        // get house here
         Transform house = TaskManager.instance.assignHouse();
         Transform door = house.Find("Door").transform;
-
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(door.position, out hit, 20f, NavMesh.AllAreas)) {
@@ -99,22 +104,27 @@ public class NPCManager : MonoBehaviour {
             npcsFinished++;
 
             if (npcsFinished == population) {
+                numImmune = 0;
               
                 npcsFinished = 0;
 
                 foreach (NPC n in npcList) {
                     if (n.isDead) {
-                        Destroy(n.gameObject);
                         population--; 
                         numDeaths++;
-                        Debug.Log("NPC " +npc.name + " dead. Total deaths: " + numDeaths);
+                        Debug.Log("NPC " + npc.name + " dead. Total deaths: " + numDeaths);
+                        // Destroy(n.gameObject);
                     }
                     else {
+                        if(npc.isImmune) {
+                            numImmune++;
+                        }
                         n.agent.enabled = true;
                     }
                 }
 
                 npcList.RemoveAll(n => n.isDead);
+                Debug.Log("Day finished");
                 dayFinished.Invoke();
             }
         });

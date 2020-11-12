@@ -26,12 +26,10 @@ public class NPC : MonoBehaviour {
 
     private Queue<Task> tasks;
     private int daysWithDisease = 0;
-    private float deathChance = 0.0f;
-    private bool headingHome = false;
-    public bool inDoor = true;
-    
 
-    // Start is called before the first frame update
+    private float deathChance = 0.0f;
+    private bool headingHome = false;    
+
     void Start() {
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
         deathChance = Disease.getChanceOfDeath(this);
@@ -128,8 +126,7 @@ public class NPC : MonoBehaviour {
         
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
-
-            if (r < deathChance) {
+            if (r > deathChance) {
                 return true;
             }
 
@@ -138,7 +135,6 @@ public class NPC : MonoBehaviour {
                 isInfected = false;
                 isImmune = true;
             }
-
         }
 
         return false;
@@ -148,7 +144,6 @@ public class NPC : MonoBehaviour {
         meshRenderer.enabled = false;
         var animator = gameObject.GetComponent<Animator>();
         animator.enabled = false;
-        //agent.enabled = !agent.enabled;
     }
 
     public void enable()

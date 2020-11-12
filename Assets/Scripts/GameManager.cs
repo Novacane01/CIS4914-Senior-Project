@@ -16,6 +16,4 @@ public class GameManager : MonoBehaviour {
 
         gameState = GameState.PLAYING;
     }
-
-    
 }
