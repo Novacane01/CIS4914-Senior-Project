@@ -17423,7 +17423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 467.2, y: 306.3}
+  m_AnchoredPosition: {x: 465.2, y: 237}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170833491
@@ -25585,7 +25585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 645.8, y: 422.7}
+  m_AnchoredPosition: {x: 643.8, y: 353.40002}
   m_SizeDelta: {x: 38.6781, y: 41.61023}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &380304227
@@ -42668,7 +42668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 590, y: 218.3}
+  m_AnchoredPosition: {x: 588, y: 149}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789898965
@@ -50960,7 +50960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 590, y: 293.87}
+  m_AnchoredPosition: {x: 588, y: 224.57}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1017108721
@@ -52207,7 +52207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700.68, y: 422.7}
+  m_AnchoredPosition: {x: 698.68, y: 353.40002}
   m_SizeDelta: {x: 38.63916, y: 41.600952}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1045422136
@@ -55314,7 +55314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 590.8, y: 422.7}
+  m_AnchoredPosition: {x: 588.8, y: 353.40002}
   m_SizeDelta: {x: 40.99762, y: 41.60681}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1122671419
@@ -68920,7 +68920,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 590, y: 256.3}
+  m_AnchoredPosition: {x: 588, y: 187}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1500896150
@@ -82759,9 +82759,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcCamera: {fileID: 1748397606}
-  worldCameras: {fileID: 68558402}
+  worldCameras:
+  - {fileID: 853553270}
+  - {fileID: 688581293}
+  - {fileID: 319973474}
+  - {fileID: 106127067}
   freeCamera: {fileID: 414315912}
   cameraState: 0
+  cameraDropdown: {fileID: 0}
 --- !u!1001 &1842054356
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84991,15 +84996,15 @@ MonoBehaviour:
   - {fileID: 1679171541}
   - {fileID: 1897058436}
   - {fileID: 1372481164}
-  tasksPerPerson: 1
+  tasksPerPerson: 4
   totalNumTasks: 0
   taksDuration: 5
   tasksCompleted: 0
   npcsFinished: 0
   PopulationList: {fileID: 1663845034}
-  population: 1
-  initialNumInfected: 0
-  infectionRate: 0
+  population: 30
+  initialNumInfected: 5
+  infectionRate: 0.2
   numInfected: 0
   numDead: 0
   npcsToLoad:

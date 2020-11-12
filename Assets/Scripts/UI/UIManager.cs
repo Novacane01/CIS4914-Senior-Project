@@ -11,9 +11,9 @@ public class UIManager : MonoBehaviour {
 
    
     void Start() {
-        DeathsDay = GameObject.Find("UI/DaySummary/Panel/TextDisplay/DeathsDay").GetComponent<Text>();
-        InfectedDay = GameObject.Find("UI/StatsUI/Panel/TextDisplay/InfectedDay").GetComponent<Text>();
-        DaysLeft = GameObject.Find("UI/StatsUI/Panel/TextDisplay/DaysLeft").GetComponent<Text>();
+        //DeathsDay = GameObject.Find("UI/DaySummary/Panel/TextDisplay/DeathsDay").GetComponent<Text>();
+        //InfectedDay = GameObject.Find("UI/StatsUI/Panel/TextDisplay/InfectedDay").GetComponent<Text>();
+        //DaysLeft = GameObject.Find("UI/StatsUI/Panel/TextDisplay/DaysLeft").GetComponent<Text>();
     }
 
     // Update is called once per frame

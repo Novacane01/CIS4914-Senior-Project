@@ -6,12 +6,12 @@ using UnityEngine.Events;
 
 public class NPC : MonoBehaviour {
     // Underlying conditions that may increase the risk of death
-   
+
 
     public UnityEvent completedDay = new UnityEvent();
 
     public Transform house;
-
+    public HUD hud;
     public new string name;
     public int index;
     public bool isInfected = false;
@@ -26,7 +26,7 @@ public class NPC : MonoBehaviour {
     public static uint numDeaths = 0;
 
     private float deathChance = 0.0f;
-    
+
 
     //For creating line renderer object
     //LineRenderer lineRenderer;
@@ -39,6 +39,7 @@ public class NPC : MonoBehaviour {
 
         deathChance = Disease.getChanceOfDeath(this);
 
+        hud = GetComponentInChildren<HUD>();
         //lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
         //lineRenderer.startColor = Color.black;
         //lineRenderer.endColor = Color.black;
@@ -56,36 +57,31 @@ public class NPC : MonoBehaviour {
         //lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
 
 
-        if (!isDead)
-        {
-            if (tasks.Count != 0)
-            {
+        if (!isDead) {
+            if (tasks.Count != 0) {
                 Task currentTask = tasks.Peek();
-                if (currentTask.isDone)
-                {
+                if (currentTask.isDone) {
                     tasks.Dequeue();
                     // Return home when finished all tasks
-                    if (tasks.Count == 0)
-                    {
+                    if (tasks.Count == 0) {
                         agent.SetDestination(house.Find("Door").transform.position);
+                        hud.addStatus("home");
                         StartCoroutine(waitUntilHome());
                     }
                 }
 
                 // Haven't started moving towards location yet
-                if (!currentTask.enRoute)
-                {
+                else if (!currentTask.enRoute) {
                     NavMeshHit hit;
-                    if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas))
-                    {
+                    if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                         agent.SetDestination(hit.position);
                         currentTask.enRoute = true;
+                        hud.addStatus("task");
                         //lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
                     }
                 }
                 // Reached destination; initate task
-                else if (currentTask.inProgress)
-                {
+                else if (currentTask.inProgress) {
                     // Hide NPC until task is finished
                     StartCoroutine(waitForTaskCompletion(currentTask));
                 }
@@ -116,7 +112,9 @@ public class NPC : MonoBehaviour {
     IEnumerator waitForTaskCompletion(Task task) {
         // Start another coroutine to calculate spread of disease every X seconds
         yield return new WaitForSeconds(task.duration); // Wait for the task duration then continue
+        Debug.Log(string.Format("{0} finished task: {1}",name,task.location));
         task.isDone = true;
+        hud.removeStatus("task");
     }
 
     // Periodically calculate disease spread 
@@ -132,6 +130,7 @@ public class NPC : MonoBehaviour {
     IEnumerator waitUntilHome() {
         yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f));
         isDead = checkForDeath();
+        hud.statuses.Clear();
         completedDay.Invoke();
     }
 
@@ -143,7 +142,7 @@ public class NPC : MonoBehaviour {
 
     private bool checkForDeath() {
         if (isInfected && !isDead) { // chekcs here in case we go from infected -> not infected (survive the disease)
-        
+
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
 
@@ -152,12 +151,13 @@ public class NPC : MonoBehaviour {
             }
 
             daysWithDisease++;
-            if(daysWithDisease == Disease.incubationTime) {
+            if (daysWithDisease == Disease.incubationTime) {
                 isInfected = false;
                 isImmune = true;
             }
 
-        } else if(isDead) {
+        }
+        else if (isDead) {
             numDeaths++;
             return true;
         }

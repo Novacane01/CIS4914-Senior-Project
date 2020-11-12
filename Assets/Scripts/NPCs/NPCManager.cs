@@ -88,7 +88,9 @@ public class NPCManager : MonoBehaviour {
 
             newNPC.completedDay.AddListener(() => {
                 npcsFinished++;
-                if(npcsFinished == population) {
+                Debug.Log(npcsFinished);
+                Debug.Log(population);
+                if (npcsFinished == population) {
                     dayFinished.Invoke();
                     npcsFinished = 0;
                     foreach (NPC npc in npcList) {
