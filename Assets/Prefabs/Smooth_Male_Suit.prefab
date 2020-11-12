@@ -345,10 +345,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2917804715730848064}
-  - component: {fileID: 1161281795893069996}
-  - component: {fileID: 2386003097276673551}
   - component: {fileID: 2005616949247707843}
+  - component: {fileID: 1161281795893069996}
   - component: {fileID: -2617288046761257243}
+  - component: {fileID: 2386003097276673551}
+  - component: {fileID: -1334405538159766525}
   m_Layer: 0
   m_Name: Smooth_Male_Suit
   m_TagString: NPC
@@ -409,6 +410,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
+--- !u!114 &-1334405538159766525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2537161850146558970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91332731cad7f4c49a8841cba6ab3d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 2386003097276673551}
+  meshRenderer: {fileID: 0}
+  completedDay:
+    m_PersistentCalls:
+      m_Calls: []
+  house: {fileID: 0}
+  name: 
+  isInfected: 0
+  underlyingConditions: 
+  inDoor: 1
 --- !u!54 &2005616949247707843
 Rigidbody:
   m_ObjectHideFlags: 0

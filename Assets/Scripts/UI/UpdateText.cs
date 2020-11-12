@@ -5,17 +5,14 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UpdateText : MonoBehaviour
 {
-
     Text txtInfections;
     Text txtDeaths;
     Text txtPopulations;
-    private int num;
-    public 
+    private uint num;
     //public Statistics stats
 
     void Start()
     {
-        num = 1;
         txtInfections = GameObject.Find("UI/StatsUI/Panel/TextDisplay/Infections").GetComponent<Text>();
         txtDeaths = GameObject.Find("UI/StatsUI/Panel/TextDisplay/Deaths").GetComponent<Text>();
         txtPopulations = GameObject.Find("UI/StatsUI/Panel/TextDisplay/Population").GetComponent<Text>();
@@ -26,10 +23,10 @@ public class UpdateText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         num += 1;
+        //txtInfections.text = Statistics.numInfected.ToString();
         txtInfections.text = Statistics.numInfected.ToString();
         txtDeaths.text = Statistics.numDeaths.ToString();
-        txtPopulations.text = Statistics.initPop.ToString();
+        txtPopulations.text = Statistics.currPop.ToString();
     }
 }

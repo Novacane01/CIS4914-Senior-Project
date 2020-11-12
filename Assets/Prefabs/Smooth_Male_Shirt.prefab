@@ -227,10 +227,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1817062899263662848}
-  - component: {fileID: 6443691881304882911}
-  - component: {fileID: 3127161375414499740}
   - component: {fileID: 7317052759580059359}
+  - component: {fileID: 3127161375414499740}
   - component: {fileID: -6347197974492358376}
+  - component: {fileID: 6443691881304882911}
+  - component: {fileID: 259932432724373795}
   m_Layer: 0
   m_Name: Smooth_Male_Shirt
   m_TagString: NPC
@@ -277,6 +278,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
+--- !u!114 &259932432724373795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332029444798722490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91332731cad7f4c49a8841cba6ab3d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 6443691881304882911}
+  meshRenderer: {fileID: 0}
+  completedDay:
+    m_PersistentCalls:
+      m_Calls: []
+  house: {fileID: 0}
+  name: 
+  isInfected: 0
+  underlyingConditions: 
+  inDoor: 1
 --- !u!136 &3127161375414499740
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5,114 +5,85 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class NPC : MonoBehaviour {
-    // Underlying conditions that may increase the risk of death
 
+    // Components of NPC entity
+    public NavMeshAgent agent;
+    public SkinnedMeshRenderer meshRenderer;
 
+    // Called upon completing day, callback function defined in NPC manager
     public UnityEvent completedDay = new UnityEvent();
 
     public Transform house;
     public HUD hud;
     public new string name;
-    public int index;
     public bool isInfected = false;
-    public Disease.Condition[] underlyingConditions;
-    public Queue<Task> tasks;
-    public NavMeshAgent agent;
-    public SkinnedMeshRenderer meshRenderer;
-    public bool isDead = false;
-    public bool isImmune = false;
 
+    // Underlying conditions that may increase the risk of death
+    public Disease.Condition[] underlyingConditions;
+    
+    public bool isDead { get; private set;  } = false;
+    public bool isImmune { get; private set; } = false;
+
+    private Queue<Task> tasks;
     private int daysWithDisease = 0;
-    public static uint numDeaths = 0;
 
     private float deathChance = 0.0f;
+    private bool headingHome = false;    
 
-
-    //For creating line renderer object
-    //LineRenderer lineRenderer;
-
-
-    // Start is called before the first frame update
     void Start() {
-        agent = gameObject.GetComponent<NavMeshAgent>();
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
-
         deathChance = Disease.getChanceOfDeath(this);
-
         hud = GetComponentInChildren<HUD>();
-        //lineRenderer = new GameObject("Line").AddComponent<LineRenderer>();
-        //lineRenderer.startColor = Color.black;
-        //lineRenderer.endColor = Color.black;
-        //lineRenderer.startWidth = 1f;
-        //lineRenderer.endWidth = 1f;
-        //lineRenderer.positionCount = 2;
-        //lineRenderer.useWorldSpace = true;
     }
 
-    // Update is called once per frame
     void Update() {
 
-
-        //For drawing line in the world space, provide the x,y,z values
-        //lineRenderer.SetPosition(0, transform.position); //x,y and z position of the starting point of the line
-
-
-        if (!isDead) {
-            if (tasks.Count != 0) {
+        if (!isDead)
+        {
+            if (tasks.Count != 0)
+            {
                 Task currentTask = tasks.Peek();
-                if (currentTask.isDone) {
+                if (currentTask.isDone)
+                {
+                    Debug.Log("Task complete: " + name);
                     tasks.Dequeue();
-                    // Return home when finished all tasks
-                    if (tasks.Count == 0) {
-                        agent.SetDestination(house.Find("Door").transform.position);
-                        hud.addStatus("home");
-                        StartCoroutine(waitUntilHome());
-                    }
                 }
 
                 // Haven't started moving towards location yet
-                else if (!currentTask.enRoute) {
+                else if (!currentTask.enRoute && agent.enabled)
+                {
                     NavMeshHit hit;
                     if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                         agent.SetDestination(hit.position);
                         currentTask.enRoute = true;
                         hud.addStatus("task");
-                        //lineRenderer.SetPosition(1, hit.position); //x,y and z position of the starting point of the line
                     }
                 }
-                // Reached destination; initate task
-                else if (currentTask.inProgress) {
-                    // Hide NPC until task is finished
-                    StartCoroutine(waitForTaskCompletion(currentTask));
-                }
             }
-        }
-        else if (agent && agent.destination.x == Disease.deathPosition.x && agent.destination.z == Disease.deathPosition.z && agent.remainingDistance < 0.01f) {
-            Debug.Log("Made it to death");
-            Destroy(GetComponent<Rigidbody>());
-            Destroy(GetComponent<NavMeshAgent>());
-            Destroy(GetComponent<CapsuleCollider>());
-            Destroy(GetComponent<Animator>());
 
-            agent = null;
-
-            transform.rotation = Quaternion.LookRotation(new Vector3(90f, 0f, 0f));
-            transform.Rotate(new Vector3(-90f, 0f, 90f));
-            transform.Translate(0f, 0f, Disease.deathHeight);
-            Disease.deathHeight += 0.1f;
+            // Return home when finished all tasks
+            if (tasks.Count == 0 && !headingHome)
+            {
+                if (!agent.enabled) { agent.enabled = true; }
+                Debug.Log("heading home: " + name);
+                agent.SetDestination(house.Find("Door").transform.position);
+                StartCoroutine(waitUntilHome());
+            }
         }
     }
 
     // Initiate task on top of the queue
     public void startTask() {
+        Debug.Log("Starting task: " + name);
         Task currentTask = tasks.Peek();
+        currentTask.enRoute = false;
         StartCoroutine(waitForTaskCompletion(currentTask));
     }
 
     IEnumerator waitForTaskCompletion(Task task) {
         // Start another coroutine to calculate spread of disease every X seconds
         yield return new WaitForSeconds(task.duration); // Wait for the task duration then continue
-        Debug.Log(string.Format("{0} finished task: {1}",name,task.location));
+        agent.enabled = true;
         task.isDone = true;
         hud.removeStatus("task");
     }
@@ -128,25 +99,38 @@ public class NPC : MonoBehaviour {
     }
 
     IEnumerator waitUntilHome() {
-        yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance && (!agent.hasPath || agent.velocity.sqrMagnitude == 0f));
+        headingHome = true;
+        hud.addStatus("home");
+        yield return new WaitUntil(() => !agent.enabled);
         isDead = checkForDeath();
         hud.statuses.Clear();
         completedDay.Invoke();
     }
 
-    // Convert Array of tasks to Queue
-    public void loadTasks(Task[] tasks) {
+
+    public void initializeDay(Task[] tasks) {
         this.tasks = new Queue<Task>(tasks);
+        headingHome = false;
+        agent.enabled = true;
     }
 
+    public Transform currentTaskLocation() {
+        if (tasks.Count != 0) {
+            return tasks.Peek().location.parent;
+        }
+        return null;
+    }
+
+    public int numTasks() {
+        return tasks.Count;
+    }
 
     private bool checkForDeath() {
         if (isInfected && !isDead) { // chekcs here in case we go from infected -> not infected (survive the disease)
 
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
-
-            if (r < deathChance) {
+            if (r > deathChance) {
                 return true;
             }
 
@@ -155,12 +139,22 @@ public class NPC : MonoBehaviour {
                 isInfected = false;
                 isImmune = true;
             }
+        }
 
-        }
-        else if (isDead) {
-            numDeaths++;
-            return true;
-        }
         return false;
     }
+
+    public void diasble() {
+        meshRenderer.enabled = false;
+        var animator = gameObject.GetComponent<Animator>();
+        animator.enabled = false;
+    }
+
+    public void enable()
+    {
+        meshRenderer.enabled = true;
+        var animator = gameObject.GetComponent<Animator>();
+        animator.enabled = true;
+    }
 }
+

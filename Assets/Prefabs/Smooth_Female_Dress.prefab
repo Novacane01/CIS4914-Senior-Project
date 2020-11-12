@@ -1102,6 +1102,7 @@ GameObject:
   - component: {fileID: 7649300353519648787}
   - component: {fileID: 7392335695355942921}
   - component: {fileID: 6124972698869329837}
+  - component: {fileID: -114965903881780296}
   m_Layer: 0
   m_Name: Smooth_Female_Dress
   m_TagString: NPC
@@ -1197,6 +1198,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 0
+--- !u!114 &-114965903881780296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5377910606497776191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91332731cad7f4c49a8841cba6ab3d9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 6124972698869329837}
+  meshRenderer: {fileID: 0}
+  completedDay:
+    m_PersistentCalls:
+      m_Calls: []
+  house: {fileID: 0}
+  name: 
+  isInfected: 0
+  underlyingConditions: 
+  inDoor: 1
 --- !u!1 &5827274948222026990
 GameObject:
   m_ObjectHideFlags: 0

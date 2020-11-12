@@ -5,19 +5,23 @@ public class House : Building
     public override void OnNpcEnter(Collider other)
     {
         NPC npc = other.gameObject.GetComponent<NPC>();
-        if (npc.house == transform)
+
+        if (npc.house == transform && npc.agent && npc.numTasks() == 0)
         {
+            npc.agent.enabled = false;
+            npc.diasble();
+
             calculateSpread();
             occupancy.Add(npc);
-            if(npc.meshRenderer != null)
-            {
-                npc.meshRenderer.enabled = false;
-            }
         }
     }
     public override void OnNpcLeave(Collider other)
     {
         NPC npc = other.gameObject.GetComponent<NPC>();
-        npc.meshRenderer.enabled = true;
+
+        if (npc.house == transform)
+        {
+            npc.enable();
+        }   
     }
 }

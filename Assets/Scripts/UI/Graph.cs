@@ -15,7 +15,12 @@ public class Graph : MonoBehaviour{
     Text YaxisTop;
     Text YaxisMid;
     Text YaxisBot;
-    //
+    Canvas canvas;
+    public GameObject graphBG;
+    private uint currentDay;
+    private List<uint> infectedList = new List<uint>() { };
+    private List<uint> susceptibleList = new List<uint>() { };
+    private List<uint> immuneList = new List<uint>() { };
     //Text txtDeaths;
     //Text txtPopulations;
     void Start(){
@@ -24,8 +29,27 @@ public class Graph : MonoBehaviour{
         YaxisMid = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisMid").GetComponent<Text>();
         YaxisBot = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisBot").GetComponent<Text>();
         //create list of values to test 
-        List<int> values = new List<int>() { 20, 60, 80, 30, 40, 90, 16, 16, 20, 60, 80 };
-        displayGraph(values);
+        canvas = GameObject.Find("DailyReport").GetComponent<Canvas>();
+        infectedList.Add(Statistics.numInfected);
+        immuneList.Add(Statistics.numImmune);
+        susceptibleList.Add(Statistics.currPop);
+        displayGraph(infectedList, Color.red);
+        displayGraph(immuneList, Color.green);
+        displayGraph(susceptibleList, Color.blue);
+        //displayGraph(values);
+        currentDay = 0;
+
+        NPCManager.instance.dayFinished.AddListener(() => {
+            currentDay++;
+            //days list -> make from config list? and just update here?
+            //infected
+            infectedList.Add(Statistics.numInfected);
+            immuneList.Add(Statistics.numImmune);
+            susceptibleList.Add(Statistics.currPop);
+            displayGraph(infectedList, Color.red);
+            displayGraph(immuneList, Color.green);
+            displayGraph(susceptibleList, Color.blue);
+        });
     }
 
 
@@ -82,47 +106,80 @@ public class Graph : MonoBehaviour{
      }
      */
 
-    private void CreateBar(Vector2 setPosition, float width) {
+
+    //public static float infectionRate = 0.50f;
+    /*
+    c = avg # of contacts per day
+    T = transmission rate = tranmission risk * avg number of interactions a day (average number of people an infected person passes the disease too
+    infection period - how long are people contagious
+    recovery rate - chance of survival = 1/ IP
+    Population must be assigned
+        infectious
+        recovered/immune
+     */
+
+
+
+    void Update()
+    {
+        System.Random rnd = new System.Random();
+        float r = rnd.Next(100) / 100f;
+
+        //Debug.Log("CHANCE FOR DEATH");
+        //Debug.Log(r);
+    }
+
+    private void CreateDot(Vector2 setPosition, Color dotColor) {
         //create rectangle
         GameObject gameObject = new GameObject("rect", typeof(Image)); 
         gameObject.transform.SetParent(graphDisplay, false);
-        gameObject.GetComponent<Image>();
+        gameObject.GetComponent<Image>().color = dotColor;
         RectTransform barTransform = gameObject.GetComponent<RectTransform>();
-        barTransform.anchoredPosition = new Vector2(setPosition.x, 0f);
+        barTransform.anchoredPosition = setPosition;
+        barTransform.sizeDelta = new Vector2(10,10);
+        //barTransform.anchoredPosition = new Vector2(setPosition.x, 0f);
         //anchor to bottom left
-        barTransform.sizeDelta = new Vector2(width, setPosition.y);
+        //barTransform.sizeDelta = new Vector2(width, setPosition.y);
         barTransform.anchorMin = new Vector2(0, 0);
         barTransform.anchorMax = new Vector2(0, 0);
-        barTransform.pivot = new Vector2(.5f, 0f);
+        //barTransform.pivot = new Vector2(.5f, 0f);
     }
 
 
-    private void displayGraph(List<int> numInfected){
+    private void displayGraph(List<uint> sirList, Color dotColor){
         //given the value, display it
         float graphHeight = graphDisplay.sizeDelta.y;
         //distance between bars
         float dist = 40f;
-        int min = numInfected[0];
-        int max = 0;
-        for (int i = 0; i < numInfected.Count; i++)
+        uint min = 0;
+        float max = Statistics.initPop;
+        float mid = max/2;
+        /*
+        for (int i = 0; i < sirList.Count; i++)
         {
-            float yPos = (numInfected[i] / 100f) * graphHeight; //100 should be replaced by maximum y value
-            float xPos = dist+ i * dist;
-            CreateBar(new Vector2(xPos, yPos), 20);
-
-            //get max value for labels 
-            if(numInfected[i] > max)
+            if (sirList[i] > max1)
             {
-                max = numInfected[i];
-            }
-
-            if(numInfected[i] < min)
-            {
-                min = numInfected[i];
+                max1 = sirList[i];
             }
         }
-        int mid = max - min;
-        max += 10;
+        */
+        for (int i = 0; i < sirList.Count; i++)
+        {
+            float test = sirList[i] / max;
+            float yPos = (sirList[i] / max) * graphHeight; //100 should be replaced by maximum y value
+            float xPos = dist+ i * dist;
+            CreateDot(new Vector2(xPos, yPos), dotColor);
+           // Debug.Log("NEW VECTOR");
+            //Debug.Log(xPos);
+            //Debug.Log(yPos);
+            //Debug.Log(sirList[i]);
+            //Debug.Log(graphHeight);
+            //get max value for labels 
+
+        }
+        
+        //max += 10;
+        //will have to be population based
         YaxisTop.text = max.ToString();
         YaxisMid.text = mid.ToString();
         YaxisBot.text = min.ToString();
