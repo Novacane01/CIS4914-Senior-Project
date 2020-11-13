@@ -15,6 +15,7 @@ abstract public class Building : MonoBehaviour {
             if (r <= t && !npc.isInfected) {
                 NPCManager.instance.numInfected++;
                 npc.isInfected = true;
+                npc.hud.addStatus("sick");
                 Debug.Log(string.Format("{0} people have contracted the disease", NPCManager.instance.numInfected));
             }
         }

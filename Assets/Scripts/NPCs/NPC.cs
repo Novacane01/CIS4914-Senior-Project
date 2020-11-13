@@ -14,7 +14,7 @@ public class NPC : MonoBehaviour {
     public UnityEvent completedDay = new UnityEvent();
 
     public Transform house;
-
+    public HUD hud;
     public new string name;
     public bool isInfected = false;
 
@@ -33,6 +33,7 @@ public class NPC : MonoBehaviour {
     void Start() {
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
         deathChance = Disease.getChanceOfDeath(this);
+        hud = GetComponentInChildren<HUD>();
     }
 
     void Update() {
@@ -52,10 +53,10 @@ public class NPC : MonoBehaviour {
                 else if (!currentTask.enRoute && agent.enabled)
                 {
                     NavMeshHit hit;
-                    if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas))
-                    {
+                    if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                         agent.SetDestination(hit.position);
                         currentTask.enRoute = true;
+                        hud.addStatus("task");
                     }
                 }
             }
@@ -84,6 +85,7 @@ public class NPC : MonoBehaviour {
         yield return new WaitForSeconds(task.duration); // Wait for the task duration then continue
         agent.enabled = true;
         task.isDone = true;
+        hud.removeStatus("task");
     }
 
     // Periodically calculate disease spread 
@@ -98,8 +100,10 @@ public class NPC : MonoBehaviour {
 
     IEnumerator waitUntilHome() {
         headingHome = true;
+        hud.addStatus("home");
         yield return new WaitUntil(() => !agent.enabled);
         isDead = checkForDeath();
+        hud.statuses.Clear();
         completedDay.Invoke();
     }
 
@@ -123,7 +127,7 @@ public class NPC : MonoBehaviour {
 
     private bool checkForDeath() {
         if (isInfected && !isDead) { // chekcs here in case we go from infected -> not infected (survive the disease)
-        
+
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
             if (r > deathChance) {
@@ -131,7 +135,7 @@ public class NPC : MonoBehaviour {
             }
 
             daysWithDisease++;
-            if(daysWithDisease == Disease.incubationTime) {
+            if (daysWithDisease == Disease.incubationTime) {
                 isInfected = false;
                 isImmune = true;
             }
