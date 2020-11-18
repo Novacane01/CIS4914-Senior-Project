@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPCCamera : MonoBehaviour {
     private Camera npcCamera;
+
+    private static int index = 0;
     public static NPC currentNPC;
 
     private void Awake() {
@@ -14,13 +16,13 @@ public class NPCCamera : MonoBehaviour {
     public void changeNPC(string direction) {
         switch (direction) {
             case "Next":
-                if (currentNPC.index < NPCManager.instance.npcList.Count - 1) {
-                    currentNPC = NPCManager.instance.npcList[currentNPC.index + 1];
+                if (index < NPCManager.instance.npcList.Count - 1) {
+                    currentNPC = NPCManager.instance.npcList[++index];
                 }
                 break;
             case "Previous":
-                if (currentNPC.index > 0) {
-                    currentNPC = NPCManager.instance.npcList[currentNPC.index - 1];
+                if (index > 0) {
+                    currentNPC = NPCManager.instance.npcList[--index];
                 }
                 break;
             default:
@@ -31,6 +33,15 @@ public class NPCCamera : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        transform.position = new Vector3(currentNPC.transform.position.x + 30f, transform.position.y, currentNPC.transform.position.z);
+        if(currentNPC) {
+            transform.position = new Vector3(currentNPC.transform.position.x + 30f, transform.position.y, currentNPC.transform.position.z);
+        }
+    }
+
+    public static NPC getCurrentNPC() {
+        if(index >= 0 && index < NPCManager.instance.population) {
+            return NPCManager.instance.npcList[index];
+        }
+        return null;
     }
 }

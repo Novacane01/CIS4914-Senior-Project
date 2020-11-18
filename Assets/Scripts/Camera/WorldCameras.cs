@@ -15,11 +15,6 @@ public class WorldCameras : MonoBehaviour {
         });
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
     public void changeWorldCamera(int cameraIndex) {
         currentCamera.enabled = false;
         currentCamera = worldCameras[cameraIndex];

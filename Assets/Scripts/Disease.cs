@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Disease
@@ -20,8 +19,7 @@ public class Disease
         {Condition.Asthma, 0.2f } 
     };
 
-    //public static float infectionRate = 0.50f;
-    public static float infectionRate = Statistics.initRate;
+    public static float infectionRate = Statistics.transRate;
     public static float spreadDistance = 6f;
     public static int incubationTime = 14; // Days
     public bool active = false;
