@@ -1,0 +1,29 @@
+Number of Days: 1
+Transmission Rate: 0.3
+Final Number Infected: 6
+Final Number Immune: 0
+Final Number of Deaths 0
+
+Number of Days: 1
+Transmission Rate: 0.3
+Final Number Infected: 7
+Final Number Immune: 0
+Final Number of Deaths 0
+
+Number of Days: 1
+Transmission Rate: 0.3
+Final Number Infected: 7
+Final Number Immune: 0
+Final Number of Deaths 0
+
+Number of Days: 1
+Transmission Rate: 0.3
+Final Number Infected: 7
+Final Number Immune: 0
+Final Number of Deaths 0
+
+Number of Days: 1
+Transmission Rate: 0.3
+Final Number Infected: 7
+Final Number Immune: 0
+Final Number of Deaths 0
