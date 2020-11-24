@@ -21,6 +21,7 @@ public class Graph : MonoBehaviour{
     private List<uint> infectedList = new List<uint>() { };
     private List<uint> susceptibleList = new List<uint>() { };
     private List<uint> immuneList = new List<uint>() { };
+    private RectTransform XaxisLabelTmp;
     //Text txtDeaths;
     //Text txtPopulations;
     void Start(){
@@ -28,6 +29,7 @@ public class Graph : MonoBehaviour{
         YaxisTop = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisTop").GetComponent<Text>();
         YaxisMid = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisMid").GetComponent<Text>();
         YaxisBot = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisBot").GetComponent<Text>();
+        XaxisLabelTmp = graphDisplay.Find("XaxisLabel").GetComponent<RectTransform>();
         //create list of values to test 
         canvas = GameObject.Find("DailyReport").GetComponent<Canvas>();
         infectedList.Add(Statistics.numInfected);
@@ -149,37 +151,32 @@ public class Graph : MonoBehaviour{
     private void displayGraph(List<uint> sirList, Color dotColor){
         //given the value, display it
         float graphHeight = graphDisplay.sizeDelta.y;
+        //float graphWidth = graphDisplay.sizeDelta.x;
         //distance between bars
-        float dist = 40f;
+        float dist = 50f;
         uint min = 0;
         float max = Statistics.initPop;
         float mid = max/2;
-        /*
+
         for (int i = 0; i < sirList.Count; i++)
         {
-            if (sirList[i] > max1)
-            {
-                max1 = sirList[i];
-            }
-        }
-        */
-        for (int i = 0; i < sirList.Count; i++)
-        {
-            float test = sirList[i] / max;
             float yPos = (sirList[i] / max) * graphHeight; //100 should be replaced by maximum y value
             float xPos = dist+ i * dist;
             CreateDot(new Vector2(xPos, yPos), dotColor);
-           // Debug.Log("NEW VECTOR");
+            // Debug.Log("NEW VECTOR");
             //Debug.Log(xPos);
             //Debug.Log(yPos);
             //Debug.Log(sirList[i]);
             //Debug.Log(graphHeight);
             //get max value for labels 
-
+            RectTransform XaxisLabel = Instantiate(XaxisLabelTmp);
+            XaxisLabel.SetParent(graphDisplay,false);
+            XaxisLabel.gameObject.SetActive(true);
+            XaxisLabel.anchoredPosition = new Vector2(xPos, -10f);
+            int x = i++;
+            XaxisLabel.GetComponent<Text>().text = x.ToString();
         }
-        
-        //max += 10;
-        //will have to be population based
+
         YaxisTop.text = max.ToString();
         YaxisMid.text = mid.ToString();
         YaxisBot.text = min.ToString();

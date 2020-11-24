@@ -27,3 +27,21 @@ Transmission Rate: 0.3
 Final Number Infected: 7
 Final Number Immune: 0
 Final Number of Deaths 0
+Number of Days: 2
+Transmission Rate: 0.05170245
+Final Number Infected: 0
+Final Number Immune: 0
+Final Number of Deaths 0
+
+Number of Days: 2
+Transmission Rate: 0.02827048
+Final Number Infected: 0
+Final Number Immune: 0
+Final Number of Deaths 0
+
+Number of Days: 3
+Transmission Rate: 0.05170245
+Final Number Infected: 0
+Final Number Immune: 0
+Final Number of Deaths 0
+
