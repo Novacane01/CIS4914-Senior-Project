@@ -45,3 +45,9 @@ Final Number Infected: 0
 Final Number Immune: 0
 Final Number of Deaths 0
 
+Number of Days: 3
+Transmission Rate: 0.01994979
+Final Number Infected: 31
+Final Number Immune: 0
+Final Number of Deaths 17
+

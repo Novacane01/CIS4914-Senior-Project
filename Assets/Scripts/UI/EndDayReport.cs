@@ -24,10 +24,10 @@ public class EndDayReport : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas = GameObject.Find("EndDay").GetComponent<Canvas>();
+        canvas = GameObject.Find("EndDayReport").GetComponent<Canvas>();
         canvas.enabled = false;
-        deathText = transform.Find("Panel/DeathTextEnd").GetComponent<Text>();
-        infectionText = transform.Find("Panel/InfectionTextEnd").GetComponent<Text>();
+        deathText = transform.Find("Panel/DeathText").GetComponent<Text>();
+        infectionText = transform.Find("Panel/InfectionText").GetComponent<Text>();
     }
 
     public void Hide()

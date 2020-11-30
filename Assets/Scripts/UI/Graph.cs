@@ -47,7 +47,8 @@ public class Graph : MonoBehaviour{
             //infected
             infectedList.Add(Statistics.numInfected);
             immuneList.Add(Statistics.numImmune);
-            susceptibleList.Add(Statistics.currPop);
+            uint sus = Statistics.currPop - Statistics.numInfected;
+            susceptibleList.Add(sus);
             displayGraph(infectedList, Color.red);
             displayGraph(immuneList, Color.green);
             displayGraph(susceptibleList, Color.blue);

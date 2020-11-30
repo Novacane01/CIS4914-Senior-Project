@@ -12,7 +12,7 @@ abstract public class Building : MonoBehaviour {
         foreach (NPC npc in occupancy) {
             float r = rnd.Next(100) / 100f;
             float t = 1 - Mathf.Pow(1 - Disease.infectionRate, numInfected);
-            if (r <= t && !npc.isInfected) {
+            if (r <= t && !npc.isInfected && !npc.isImmune) {
                 NPCManager.instance.numInfected++;
                 npc.isInfected = true;
                 npc.hud.addStatus("sick");

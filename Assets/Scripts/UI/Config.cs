@@ -6,7 +6,6 @@ using System;
 
 public class Config : MonoBehaviour
 {
-    // Start is called before the first frame update
     //public InputField popInput;
     //public InputField infectedInput;
     //public InputField transmissionInput;
@@ -16,20 +15,38 @@ public class Config : MonoBehaviour
     public Slider numDaysInput;
     public Slider taskNumInput;
     public Slider taskDurInput;
+    public Slider deathRateInput;
+    public Slider daysTilImmuneInput;
     public Text popText;
     public Text infectedText;
     public Text transText;
     public Text numDaysText;
     public Text taskNumText;
     public Text taskDurText;
+    public Text deathRateText;
+    public Text daysTilImmuneText;
     public GameObject popUpWindow;
 
-    public static uint initPop = 0;
-    public static uint initNumInfected = 0;
-    public static float transRate = 0f;
+    public static uint initPop = 50;
+    public static uint initNumInfected = 1;
+    public static float transRate = 0.1f;
     public static uint numDays = 3;
     public static uint tasksPerDay = 6;
     public static uint taskDuration = 5;
+    public static uint daysTilImmune = 4;
+    public static float deathRate = 0.1f;
+
+    private void Start()
+    {
+        popInput.value = initPop;
+        infectedInput.value = initNumInfected;
+        transInput.value = transRate;
+        numDaysInput.value = numDays;
+        taskNumInput.value = tasksPerDay;
+        taskDurInput.value = taskDuration;
+        deathRateInput.value = deathRate;
+        daysTilImmuneInput.value = daysTilImmune;
+    }
 
     private void Update()
     {
@@ -39,7 +56,8 @@ public class Config : MonoBehaviour
         numDaysText.text = numDaysInput.value.ToString();
         taskNumText.text = taskNumInput.value.ToString();
         taskDurText.text = taskDurInput.value.ToString();
-
+        deathRateText.text = deathRateInput.value.ToString();
+        daysTilImmuneText.text = daysTilImmuneInput.value.ToString();
     }
 
     private void ValueChange()
@@ -55,6 +73,8 @@ public class Config : MonoBehaviour
             tasksPerDay = Convert.ToUInt32(taskNumText.text);
             taskDuration = Convert.ToUInt32(taskDurText.text);
             numDays = Convert.ToUInt32(numDaysText.text);
+            deathRate = Convert.ToSingle(deathRateInput.value);
+            daysTilImmune = Convert.ToUInt32(daysTilImmuneInput.value);
 
         }
         catch (FormatException e)
@@ -75,7 +95,6 @@ public class Config : MonoBehaviour
         Debug.Log("Task duration: " + taskDuration);
         if (initPop == 0 || initNumInfected == 0 || transRate == 0 || numDays == 0)
         {
-            Debug.Log("SOmethig went wronf");
             popUpWindow.SetActive(true);
         }
         else

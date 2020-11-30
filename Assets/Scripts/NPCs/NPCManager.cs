@@ -104,7 +104,7 @@ public class NPCManager : MonoBehaviour
             npcsFinished++;
 
             if (npcsFinished == population) {
-                numImmune = 0;
+                uint tempImmune = 0;
               
                 npcsFinished = 0;
 
@@ -116,15 +116,18 @@ public class NPCManager : MonoBehaviour
                         // Destroy(n.gameObject);
                     }
                     else {
-                        if(npc.isImmune) {
-                            numImmune++;
+                        if(n.isImmune) {
+                            tempImmune++;
                         }
                         n.agent.enabled = true;
                     }
                 }
 
+                numImmune = tempImmune;
                 npcList.RemoveAll(n => n.isDead);
                 Debug.Log("Day finished");
+                Debug.Log("Number of Immune at end of day: " + NPCManager.instance.numImmune);
+
                 dayFinished.Invoke();
             }
         });

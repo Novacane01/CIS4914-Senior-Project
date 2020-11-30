@@ -69,6 +69,7 @@ public class SaveData : MonoBehaviour
             }
         }
         string dataContents = File.ReadAllText(path);
+        Debug.Log(dataContents);
         text.text = dataContents;
         Instantiate(text, contentWindow);
 

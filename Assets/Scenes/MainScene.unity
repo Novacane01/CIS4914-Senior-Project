@@ -31825,7 +31825,7 @@ GameObject:
   - component: {fileID: 541990429}
   - component: {fileID: 541990430}
   m_Layer: 5
-  m_Name: EndDay
+  m_Name: EndDayReport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
