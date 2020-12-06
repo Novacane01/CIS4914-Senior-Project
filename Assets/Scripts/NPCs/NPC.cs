@@ -56,7 +56,7 @@ public class NPC : MonoBehaviour {
                     if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                         agent.SetDestination(hit.position);
                         currentTask.enRoute = true;
-                        hud.addStatus("task");
+                        //hud.addStatus("task");
                     }
                 }
             }
@@ -130,12 +130,14 @@ public class NPC : MonoBehaviour {
 
             System.Random rnd = new System.Random();
             float r = rnd.Next(100) / 100f;
-            if (r > deathChance) {
+            if (r < deathChance) {
+                Debug.Log("Dead r: " + r + " death chance: " + deathChance);
                 return true;
             }
 
             daysWithDisease++;
             if (daysWithDisease == Disease.incubationTime) {
+                Debug.Log("Days with disease: " + daysWithDisease + " Incubation Time: " + Disease.incubationTime);
                 isInfected = false;
                 isImmune = true;
             }

@@ -8,9 +8,10 @@ public class TimeManager {
     public float lightIntensity;
     public float timeInDaySeconds;
     DailyReport dailyReport;
-
+    EndDayReport endDayReport;
     public TimeManager() {
         dailyReport = GameObject.Find("DailyReport").GetComponent<DailyReport>();
+        endDayReport = GameObject.Find("EndDayReport").GetComponent<EndDayReport>();
         directionalLight = GameObject.Find("Directional light").GetComponent<Light>();
         lightIntensity = directionalLight.intensity;
         timeInDaySeconds = Config.taskDuration * Config.tasksPerDay;
@@ -22,7 +23,7 @@ public class TimeManager {
         if (Settings.dailyReportToggle.isOn) {
             if(currentDay >= Config.numDays) {
                 Debug.Log("No more days");
-                dailyReport.endShow();
+                endDayReport.Show();
             }
             else {
                 dailyReport.Show();
