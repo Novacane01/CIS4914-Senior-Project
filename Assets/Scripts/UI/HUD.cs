@@ -32,12 +32,12 @@ public class HUD : MonoBehaviour {
     }
 
     public void addStatus(string type) {
-        statuses.Add(images[type]);
-        currentImage.sprite = statuses.Last();
+       // statuses.Add(images[type]);
+        //currentImage.sprite = statuses.Last();
     }
 
     public void removeStatus(string type) {
-        statuses.Remove(images[type]);
+        //statuses.Remove(images[type]);
     }
 
     void cycleStatus() {

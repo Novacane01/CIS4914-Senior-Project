@@ -17,7 +17,7 @@ public class Graph : MonoBehaviour{
     Text YaxisBot;
     Canvas canvas;
     public GameObject graphBG;
-    private uint currentDay;
+    private uint currentDay = 1;
     private List<uint> infectedList = new List<uint>() { };
     private List<uint> susceptibleList = new List<uint>() { };
     private List<uint> immuneList = new List<uint>() { };
@@ -31,7 +31,6 @@ public class Graph : MonoBehaviour{
         YaxisBot = GameObject.Find("UI/StatsUI/Panel/Graph/YaxisBot").GetComponent<Text>();
         XaxisLabelTmp = graphDisplay.Find("XaxisLabel").GetComponent<RectTransform>();
         //create list of values to test 
-        canvas = GameObject.Find("DailyReport").GetComponent<Canvas>();
         infectedList.Add(Statistics.numInfected);
         immuneList.Add(Statistics.numImmune);
         susceptibleList.Add(Statistics.currPop);
@@ -39,7 +38,6 @@ public class Graph : MonoBehaviour{
         displayGraph(immuneList, Color.green);
         displayGraph(susceptibleList, Color.blue);
         //displayGraph(values);
-        currentDay = 0;
 
         NPCManager.instance.dayFinished.AddListener(() => {
             currentDay++;
@@ -158,7 +156,7 @@ public class Graph : MonoBehaviour{
         uint min = 0;
         float max = Statistics.initPop;
         float mid = max/2;
-
+        int x = 1;
         for (int i = 0; i < sirList.Count; i++)
         {
             float yPos = (sirList[i] / max) * graphHeight; //100 should be replaced by maximum y value
@@ -174,8 +172,9 @@ public class Graph : MonoBehaviour{
             XaxisLabel.SetParent(graphDisplay,false);
             XaxisLabel.gameObject.SetActive(true);
             XaxisLabel.anchoredPosition = new Vector2(xPos, -10f);
-            int x = i++;
             XaxisLabel.GetComponent<Text>().text = x.ToString();
+            x++;
+            
         }
 
         YaxisTop.text = max.ToString();

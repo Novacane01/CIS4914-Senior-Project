@@ -56,7 +56,7 @@ public class NPC : MonoBehaviour {
                     if (NavMesh.SamplePosition(tasks.Peek().location.transform.position, out hit, 20f, NavMesh.AllAreas)) {
                         agent.SetDestination(hit.position);
                         currentTask.enRoute = true;
-                        hud.addStatus("task");
+                        //hud.addStatus("task");
                     }
                 }
             }
