@@ -40,9 +40,7 @@ public class NPCManager : MonoBehaviour {
     }
 
     void Start() {
-
-        initialNumInfected = Statistics.numInfected;
-
+        initialNumInfected = Statistics.initNumInfected;
         for (int i = 0; i < population; i++) {
             var newNPC = initNPC();
 
@@ -51,7 +49,6 @@ public class NPCManager : MonoBehaviour {
                 newNPC.isInfected = true;
                 newNPC.hud.addStatus("sick");
                 numInfected++;
-                initialNumInfected--;
             }
             npcList.Add(newNPC);
         }
