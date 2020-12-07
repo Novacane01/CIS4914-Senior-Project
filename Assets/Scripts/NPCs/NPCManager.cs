@@ -40,7 +40,6 @@ public class NPCManager : MonoBehaviour {
     }
 
     void Start() {
-
         for (int i = 0; i < population; i++) {
             NPC newNPC = initNPC();
 
