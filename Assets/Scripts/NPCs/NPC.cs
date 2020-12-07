@@ -28,9 +28,9 @@ public class NPC : MonoBehaviour {
     private int daysWithDisease = 0;
 
     private float deathChance = 0.0f;
-    private bool headingHome = false;    
+    private bool headingHome = false;
 
-    void Start() {
+    void Awake() {
         meshRenderer = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
         deathChance = Disease.getChanceOfDeath(this);
         hud = GetComponentInChildren<HUD>();

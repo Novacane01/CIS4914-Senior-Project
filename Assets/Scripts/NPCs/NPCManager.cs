@@ -20,7 +20,7 @@ public class NPCManager : MonoBehaviour {
     public uint npcsFinished = 0;
     public GameObject PopulationList;
 
-    public uint initialNumInfected = Statistics.numInfected;
+    public uint initialNumInfected { get; set; } = Statistics.initNumInfected;
     public uint numInfected { get; set; } = 0;
     public uint numImmune { get; private set; } = 0;
     public uint numDeaths { get; private set; } = 0;
@@ -41,17 +41,14 @@ public class NPCManager : MonoBehaviour {
 
     void Start() {
 
-        initialNumInfected = Statistics.numInfected;
-
         for (int i = 0; i < population; i++) {
-            var newNPC = initNPC();
+            NPC newNPC = initNPC();
 
             // If initial number fo infected is greater than 0 set npc to infected
             if (i < initialNumInfected) {
                 newNPC.isInfected = true;
                 newNPC.hud.addStatus("sick");
                 numInfected++;
-                initialNumInfected--;
             }
             npcList.Add(newNPC);
         }
