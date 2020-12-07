@@ -46,7 +46,6 @@ public class NPCManager : MonoBehaviour
     void Start() {
 
         initialNumInfected = Statistics.initNumInfected;
-
         for (int i = 0; i < population; i++) {
             var newNPC = initNPC();
 
@@ -55,7 +54,6 @@ public class NPCManager : MonoBehaviour
             {
                 newNPC.isInfected = true;
                 numInfected++;
-                initialNumInfected--;
             }
             npcList.Add(newNPC);
         }

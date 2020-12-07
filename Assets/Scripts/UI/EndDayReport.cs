@@ -26,8 +26,8 @@ public class EndDayReport : MonoBehaviour
     {
         canvas = GameObject.Find("EndDayReport").GetComponent<Canvas>();
         canvas.enabled = false;
-        deathText = transform.Find("Panel/DeathText").GetComponent<Text>();
-        infectionText = transform.Find("Panel/InfectionText").GetComponent<Text>();
+        deathText = transform.Find("Panel/DeathTextEnd").GetComponent<Text>();
+        infectionText = transform.Find("Panel/InfectionTextEnd").GetComponent<Text>();
     }
 
     public void Hide()

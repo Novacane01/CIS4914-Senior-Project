@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SaveData : MonoBehaviour
 {
@@ -54,6 +55,8 @@ public class SaveData : MonoBehaviour
                 sw.WriteLine("Final Number of Deaths " + Statistics.numDeaths + Environment.NewLine);
             }
         }
+
+        SceneManager.LoadScene(0);
     }
 
     public void viewData()

@@ -68,7 +68,6 @@ public class Config : MonoBehaviour
             initPop = Convert.ToUInt32(popText.text);
             initNumInfected = Convert.ToUInt32(infectedText.text);
             initPop = Convert.ToUInt32(popInput.value);
-            initNumInfected = Convert.ToUInt32(infectedInput.value);
             transRate = Convert.ToSingle(transInput.value);
             tasksPerDay = Convert.ToUInt32(taskNumText.text);
             taskDuration = Convert.ToUInt32(taskDurText.text);
@@ -93,7 +92,7 @@ public class Config : MonoBehaviour
         Debug.Log("Number of days: " + numDays);
         Debug.Log("Tasks per day for each npc: " + tasksPerDay);
         Debug.Log("Task duration: " + taskDuration);
-        if (initPop == 0 || initNumInfected == 0 || transRate == 0 || numDays == 0)
+        if (initPop == 0 || initNumInfected == 0 || transRate == 0 || numDays == 0 || tasksPerDay == 0 || taskDuration ==0)
         {
             popUpWindow.SetActive(true);
         }
