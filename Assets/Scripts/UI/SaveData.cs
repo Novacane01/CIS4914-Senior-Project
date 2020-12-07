@@ -10,12 +10,6 @@ public class SaveData : MonoBehaviour
 
     public Transform contentWindow;
     public Text text;
- 
-
-    private void Start()
-    {
-        viewData();
-    }
 
     public void saveData()
     {
@@ -72,6 +66,5 @@ public class SaveData : MonoBehaviour
         Debug.Log(dataContents);
         text.text = dataContents;
         Instantiate(text, contentWindow);
-
     }
 }
