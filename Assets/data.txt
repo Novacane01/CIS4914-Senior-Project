@@ -18,3 +18,45 @@ Final Number Infected: 45
 Final Number Immune: 0
 Final Number of Deaths 5
 
+Number of Days: 1
+Transmission Rate: 0.1
+Final Number Infected: 2
+Final Number Immune: 0
+Final Number of Deaths 1
+
+Number of Days: 1
+Transmission Rate: 0.1
+Final Number Infected: 2
+Final Number Immune: 0
+Final Number of Deaths 1
+
+Number of Days: 1
+Transmission Rate: 0.1
+Final Number Infected: 2
+Final Number Immune: 0
+Final Number of Deaths 1
+
+Number of Days: 1
+Transmission Rate: 0.1
+Final Number Infected: 2
+Final Number Immune: 0
+Final Number of Deaths 1
+
+Number of Days: 1
+Transmission Rate: 0.1
+Final Number Infected: 2
+Final Number Immune: 0
+Final Number of Deaths 1
+
+Number of Days: 1
+Transmission Rate: 0.1058006
+Final Number Infected: 5
+Final Number Immune: 0
+Final Number of Deaths 1
+
+Number of Days: 1
+Transmission Rate: 0.1
+Final Number Infected: 10
+Final Number Immune: 0
+Final Number of Deaths 1
+
